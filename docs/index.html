@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>media automations · a macOS CLI for files that are the wrong format or too large</title>
+<meta name="description" content="One command on macOS: convert images and documents, strip backgrounds with Apple's Vision framework, and compress images and video. npm install -g my_media_automations">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="media automations">
+<meta property="og:description" content="A macOS CLI for files that are the wrong format or too large. Background removal by Apple's Vision framework, PDFs by WebKit. No Chromium, no 170 MB model.">
+<meta property="og:url" content="https://sidhxntt.github.io/media_automations/">
+<link rel="canonical" href="https://sidhxntt.github.io/media_automations/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --canvas:#f5f5f5; --canvas-soft:#fafafa; --surface-card:#fff; --surface-strong:#f0efed;
+  --surface-dark:#0c0a09; --surface-dark-elevated:#1c1917;
+  --ink:#0c0a09; --primary:#292524; --primary-active:#0c0a09;
+  --body:#4e4e4e; --muted:#777169; --muted-soft:#a8a29e;
+  --hairline:#e7e5e4; --hairline-soft:#f0efed; --hairline-strong:#d6d3d1;
+  --on-primary:#fff; --on-dark:#fff; --on-dark-soft:#a8a29e;
+  --g-mint:#a7e5d3; --g-peach:#f4c5a8; --g-lavender:#c8b8e0; --g-sky:#a8c8e8; --g-rose:#e8b8c4;
+  --display:"EB Garamond",Times New Roman,serif;
+  --sans:Inter,system-ui,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  --xxs:4px; --xs:8px; --sm:12px; --base:16px; --md:20px; --lg:24px; --xl:32px; --xxl:48px; --section:96px;
+  --r-sm:6px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-xxl:24px; --pill:9999px;
+  --shell:1200px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--canvas); color:var(--body);
+  font-family:var(--sans); font-size:16px; font-weight:400; line-height:1.5; letter-spacing:.16px;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:var(--display); font-weight:400; color:var(--ink); margin:0}
+h1{font-size:clamp(32px,7.2vw,64px); line-height:1.05; letter-spacing:-1.4px}
+h2{font-size:clamp(24px,4vw,36px); line-height:1.17; letter-spacing:-.36px}
+h3{font-size:20px; line-height:1.35; letter-spacing:0; font-family:var(--sans); font-weight:500}
+p{margin:0}
+a{color:var(--ink); text-decoration:none}
+a:not([class]){text-decoration:underline; text-decoration-color:var(--hairline-strong); text-underline-offset:3px}
+a:not([class]):hover{text-decoration-color:var(--ink)}
+code{font-family:var(--mono); font-size:14px; letter-spacing:0}
+:focus-visible{outline:2px solid var(--ink); outline-offset:3px; border-radius:4px}
+.shell{max-width:var(--shell); margin:0 auto; padding:0 var(--lg)}
+.lede{font-size:18px; line-height:1.55; color:var(--body); max-width:60ch}
+.small{font-size:14px; line-height:1.5; letter-spacing:0; color:var(--muted)}
+
+/* ── atmosphere: pastel orbs, decoration only ─────────────── */
+.orb{position:absolute; border-radius:50%; filter:blur(56px); opacity:.5; pointer-events:none; z-index:0}
+
+/* ── masthead ──────────────────────────────────────────────── */
+.masthead{
+  position:sticky; top:0; z-index:20; height:64px; display:flex; align-items:center;
+  background:rgba(245,245,245,.86); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hairline-soft);
+}
+.masthead .shell{display:flex; align-items:center; gap:var(--base); width:100%}
+.wordmark{font-family:var(--sans); font-size:15px; font-weight:500; color:var(--ink); letter-spacing:-.1px; margin-right:auto}
+.wordmark span{color:var(--muted-soft)}
+.mast-links{display:flex; align-items:center; gap:var(--md)}
+.mast-links a{font-size:15px; font-weight:500; color:var(--body)}
+.mast-links a:hover{color:var(--ink)}
+.mast-links a.pill-primary{color:var(--on-primary)}
+.mast-links a.pill-outline{color:var(--ink)}
+
+/* ── buttons ───────────────────────────────────────────────── */
+.pill{
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--xs);
+  height:40px; padding:0 20px; border-radius:var(--pill);
+  font-family:var(--sans); font-size:15px; font-weight:500; letter-spacing:0;
+  border:1px solid transparent; cursor:pointer; white-space:nowrap;
+  transition:background-color .18s ease, border-color .18s ease, color .18s ease;
+}
+.pill-primary{background:var(--primary); color:var(--on-primary)}
+.pill-primary:hover{background:var(--primary-active)}
+.pill-outline{background:transparent; color:var(--ink); border-color:var(--hairline-strong)}
+.pill-outline:hover{border-color:var(--ink)}
+
+/* ── opening ───────────────────────────────────────────────── */
+.opening{position:relative; overflow:hidden; padding:calc(var(--section) - 8px) 0 var(--section)}
+.opening .shell{position:relative; z-index:1}
+.opening h1{max-width:19ch; text-wrap:balance}
+.opening .lede{margin-top:var(--lg)}
+.badges{display:flex; flex-wrap:wrap; gap:var(--xs); margin-bottom:var(--md)}
+.badge{
+  display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 10px;
+  border-radius:var(--pill); background:var(--surface-strong); color:var(--ink);
+  font-size:12px; font-weight:600; letter-spacing:.96px; text-transform:uppercase;
+}
+.badge svg{width:12px; height:12px}
+
+/* install block: the primary action */
+.install{margin-top:var(--xl); display:flex; flex-wrap:wrap; gap:var(--sm); align-items:center}
+.cmd{
+  display:flex; align-items:center; gap:var(--sm);
+  background:var(--surface-dark); color:var(--on-dark); border-radius:var(--r-lg);
+  padding:14px var(--base) 14px var(--md); min-height:52px;
+}
+.cmd code{font-family:var(--mono); font-size:14.5px; letter-spacing:0; white-space:nowrap; overflow-x:auto}
+.cmd .prompt{color:var(--g-mint); user-select:none}
+.copy{
+  flex:none; display:inline-flex; align-items:center; gap:6px; height:32px; padding:0 12px;
+  border-radius:var(--pill); border:1px solid rgba(255,255,255,.18); background:transparent;
+  color:var(--on-dark); font-family:var(--sans); font-size:13px; font-weight:500; cursor:pointer;
+  transition:background-color .18s ease, border-color .18s ease;
+}
+.copy:hover{background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.32)}
+.copy svg{width:13px; height:13px}
+.copy[data-copied="true"]{border-color:var(--g-mint); color:var(--g-mint)}
+.reqline{margin-top:var(--base); font-size:14px; color:var(--muted); letter-spacing:0}
+.reqline strong{color:var(--body-strong,#292524); font-weight:500}
+
+/* ── chapters ──────────────────────────────────────────────── */
+.chapter{border-top:1px solid var(--hairline); padding:var(--section) 0}
+.chapter-head{display:grid; grid-template-columns:56px 1fr; gap:var(--lg); align-items:start}
+.chapter-num{
+  font-family:var(--display); font-size:15px; color:var(--muted-soft);
+  padding-top:10px; letter-spacing:.5px; font-variant-numeric:tabular-nums;
+}
+.chapter-head h2{max-width:26ch; text-wrap:balance}
+.chapter-head .lede{margin-top:var(--base)}
+.chapter-body{margin-top:var(--xl); padding-left:calc(56px + var(--lg))}
+
+/* ── terminal panel: real captured output ──────────────────── */
+.term{
+  background:var(--surface-dark); border-radius:var(--r-xl); overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,.04);
+}
+.term-bar{
+  display:flex; align-items:center; gap:7px; padding:12px var(--base);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.term-dot{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.16)}
+.term-title{
+  margin-left:6px; font-family:var(--mono); font-size:12px; letter-spacing:.3px;
+  color:var(--on-dark-soft);
+}
+.term-body{
+  padding:var(--md) var(--base) var(--lg);
+  font-family:var(--mono); font-size:13px; line-height:1.62; letter-spacing:0;
+  color:#e7e5e4; overflow-x:auto; -webkit-overflow-scrolling:touch;
+}
+.term-body pre{margin:0; font:inherit}
+.dim{color:var(--on-dark-soft)}
+.rule{color:var(--muted)}
+.ok{color:var(--g-mint)}
+.mark{color:var(--g-peach)}
+.pick{color:var(--g-sky)}
+.caption{margin-top:var(--sm); font-size:13px; color:var(--muted); letter-spacing:0}
+
+/* the splash, in its real gradient */
+.splash{margin:0 0 var(--base)}
+.splash .wm{display:block; width:min(306px,84%); height:auto}
+.splash-meta{margin-top:10px; font-family:var(--mono); font-size:13px; letter-spacing:0}
+.tagline{color:var(--g-sky)}
+
+/* ── measured results table ────────────────────────────────── */
+.ledger{width:100%; border-collapse:collapse; margin-top:var(--lg)}
+.ledger caption{text-align:left; font-size:13px; color:var(--muted); padding-bottom:var(--sm); letter-spacing:0}
+.ledger th,.ledger td{padding:14px var(--base); text-align:left; border-bottom:1px solid var(--hairline)}
+.ledger thead th{
+  font-size:12px; font-weight:600; letter-spacing:.96px; text-transform:uppercase;
+  color:var(--muted); border-bottom-color:var(--hairline-strong);
+}
+.ledger tbody th{font-family:var(--mono); font-size:13px; font-weight:400; color:var(--ink); letter-spacing:0}
+.ledger td{font-size:15px; color:var(--body)}
+.ledger .num{font-family:var(--mono); font-size:14px; color:var(--ink); font-variant-numeric:tabular-nums; white-space:nowrap}
+
+/* ── two-column prose ──────────────────────────────────────── */
+.cols{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--xl) var(--xxl); margin-top:var(--xl)}
+.cols h3{margin-bottom:var(--xs)}
+.cols p{font-size:15px}
+
+/* ── format matrix ─────────────────────────────────────────── */
+.matrix{display:grid; gap:1px; background:var(--hairline); border:1px solid var(--hairline); border-radius:var(--r-xl); overflow:hidden; margin-top:var(--lg)}
+.mrow{display:grid; grid-template-columns:minmax(140px,.42fr) 1fr; gap:1px; background:var(--hairline)}
+.mcell{background:var(--surface-card); padding:14px var(--base)}
+.mcell:first-child{background:var(--canvas-soft)}
+.mono-tag{font-family:var(--mono); font-size:13px; color:var(--ink); letter-spacing:0}
+.mcell .mono-tag + .mono-tag{margin-left:var(--xs)}
+.arrow{color:var(--muted-soft); margin:0 6px}
+
+/* ── close ─────────────────────────────────────────────────── */
+.close{border-top:1px solid var(--hairline); padding:var(--section) 0; position:relative; overflow:hidden}
+.close .shell{position:relative; z-index:1}
+.close h2{max-width:24ch; text-wrap:balance}
+.close .install{margin-top:var(--lg)}
+.limits{margin-top:var(--xxl); padding-top:var(--lg); border-top:1px solid var(--hairline); max-width:70ch}
+.limits h3{font-size:14px; font-weight:600; letter-spacing:.96px; text-transform:uppercase; color:var(--muted); margin-bottom:var(--sm)}
+.limits ul{margin:0; padding-left:1.1em; font-size:14.5px; color:var(--body)}
+.limits li + li{margin-top:var(--xs)}
+
+
+footer{border-top:1px solid var(--hairline); padding:var(--xxl) 0}
+footer .shell{display:flex; flex-wrap:wrap; gap:var(--base) var(--xl); align-items:baseline}
+footer .small{margin-right:auto}
+footer nav{display:flex; gap:var(--md); flex-wrap:wrap}
+footer nav a{font-size:15px; color:var(--body)}
+footer nav a:hover{color:var(--ink)}
+
+/* ── one authored moment: the splash glint, on first view ──── */
+.splash{position:relative}
+.glint .splash::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(100deg,transparent 44%,rgba(255,255,255,.42) 50%,transparent 56%);
+  mix-blend-mode:screen;
+  animation:sweep 1.15s cubic-bezier(.16,1,.3,1) .15s both;
+}
+@keyframes sweep{
+  from{transform:translateX(-115%)}
+  to{transform:translateX(115%)}
+}
+/* No entrance fade anywhere: the page's proof is never hidden waiting on a
+   script. The one authored moment is the glint below, played on an element
+   that is already visible. */
+
+@media (max-width:900px){
+  .cols{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  :root{--section:64px}
+  .chapter-head{grid-template-columns:1fr; gap:var(--xs)}
+  .chapter-num{padding-top:0}
+  .chapter-body{padding-left:0}
+  .mrow{grid-template-columns:1fr}
+  .mast-links a[data-desktop]{display:none}
+  .cmd{width:100%; flex-wrap:wrap; row-gap:var(--sm)}
+  .cmd code{font-size:13px; white-space:normal; overflow-wrap:anywhere}
+  .copy{margin-left:auto}
+  .wordmark{white-space:nowrap}
+  .wordmark span{display:none}
+  .term-body{font-size:11.5px}
+  .ledger th,.ledger td{padding:12px var(--sm)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important; transition-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+<!--
+  THESIS: A terminal tool explained as a printed owner's manual — numbered chapters
+  you read in the order you actually meet the software. Refuses the CLI-landing rut:
+  no dark dev-tools canvas, no hero-plus-three-feature-card grid, no invented metrics.
+  OWN-WORLD: Off-white #f5f5f5 canvas, warm near-black ink, EB Garamond at 400 for
+  display, Inter for body, pastel atmospheric orbs (mint/peach/lavender/sky) as the
+  only colour, ink pill as the only CTA, 96px chapter rhythm, hairline rules.
+  Inverted near-black panels appear only where real terminal output is quoted.
+  STORY: Visitor learns it is macOS-only and free, sees the real splash and real
+  byte counts, believes it will not touch their originals, and copies one command.
+  FIRST VIEWPORT: Sticky masthead; left-ranged 64px title over a 19ch measure; lede;
+  then the install command as an inverted pill-radius bar with a copy button — the
+  primary action, above the fold; requirements stated in the same breath. A mint and
+  a lavender orb bloom behind, upper right.
+  FORM: Chronological manual, candidate 5 of 7 on my ordered list, seed ed29afd7.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+
+<header class="masthead">
+  <div class="shell">
+    <a class="wordmark" href="#top">media automations <span>v1.0.1</span></a>
+    <nav class="mast-links">
+      <a href="https://www.npmjs.com/package/my_media_automations" data-desktop>npm</a>
+      <a href="https://github.com/sidhxntt/media_automations">GitHub</a>
+      <a class="pill pill-primary" href="#install">Install</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="opening">
+    <div class="orb" style="width:520px;height:520px;background:var(--g-mint);top:-190px;right:-90px"></div>
+    <div class="orb" style="width:420px;height:420px;background:var(--g-lavender);top:40px;right:210px;opacity:.42"></div>
+    <div class="orb" style="width:300px;height:300px;background:var(--g-peach);top:320px;right:-40px;opacity:.34"></div>
+    <div class="shell">
+      <div class="badges">
+        <span class="badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a5 5 0 0 0-5 5c0 4-2 5-2 5h14s-2-1-2-5a5 5 0 0 0-5-5Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+          macOS only
+        </span>
+        <span class="badge">Free &amp; open source</span>
+      </div>
+
+      <h1>Files that are the wrong format, or far too large.</h1>
+      <p class="lede">
+        One command on your Mac. It converts images, documents and data, strips backgrounds
+        using the same engine as Preview, and compresses video. Point it at a single file or
+        a whole folder; it never touches your originals.
+      </p>
+
+      <div class="install" id="install">
+        <div class="cmd">
+          <span class="prompt" aria-hidden="true">$</span>
+          <code id="install-cmd">npm install -g my_media_automations</code>
+          <button class="copy" type="button" data-copy="npm install -g my_media_automations" aria-label="Copy install command">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
+            <span data-copy-label>Copy</span>
+          </button>
+        </div>
+        <a class="pill pill-outline" href="https://github.com/sidhxntt/media_automations">Read the source</a>
+      </div>
+      <p class="reqline">
+        Needs <strong>macOS 14 or newer</strong> and Xcode Command Line Tools
+        (<code>xcode-select --install</code>).
+        <code>ffmpeg</code> only if you touch video or audio.
+      </p>
+    </div>
+  </section>
+
+  <!-- 1 ─────────────────────────────────────────────────────── -->
+  <section class="chapter">
+    <div class="shell">
+      <div class="chapter-head">
+        <div class="chapter-num" aria-hidden="true">One</div>
+        <div>
+          <h2>What actually lands on your machine</h2>
+          <p class="lede">
+            A 56 KB package with nine dependencies. The two hard parts, cutting a subject out of
+            a photo and rendering a PDF, are done by frameworks already on your Mac. No Chromium to
+            download, and no 170 MB machine-learning model.
+          </p>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="cols">
+          <div>
+            <h3>Apple's Vision framework does the masking</h3>
+            <p>
+              Background removal calls <code>VNGenerateForegroundInstanceMaskRequest</code>,
+              literally what Preview's “Remove Background” uses. Offline, no API key, about a second
+              for a 4032&times;3024 photo.
+            </p>
+          </div>
+          <div>
+            <h3>WebKit renders the PDFs</h3>
+            <p>
+              Documents are laid out and printed by the same engine as Safari, paginated onto A4
+              rather than dumped onto one endless page.
+            </p>
+          </div>
+          <div>
+            <h3>Two small Swift helpers, compiled on first use</h3>
+            <p>
+              They ship as source, not binaries, so nothing prebuilt can mismatch your Mac,
+              Apple silicon or Intel. That is what the Command Line Tools are for.
+            </p>
+          </div>
+          <div>
+            <h3>Nothing phones home</h3>
+            <p>
+              No account, no upload, no telemetry. Your files never leave the machine, which is the
+              whole reason to prefer this over a website that wants your photo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 ─────────────────────────────────────────────────────── -->
+  <section class="chapter">
+    <div class="shell">
+      <div class="chapter-head">
+        <div class="chapter-num" aria-hidden="true">Two</div>
+        <div>
+          <h2>Your first run</h2>
+          <p class="lede">
+            Type <code>auto</code>. You get a menu of
+            the four tools; arrow keys and enter. Everything below is the real output, not a mockup.
+          </p>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="term" data-glint>
+          <div class="term-bar">
+            <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+            <span class="term-title">auto</span>
+          </div>
+          <div class="term-body">
+<div class="splash">
+<svg class="wm" viewBox="0 0 306 75" width="306" height="75" role="img" aria-label="AUTO" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="wmg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><g fill="url(#wmg)"><rect x="9" y="0" width="45" height="15"/><rect x="72" y="0" width="18" height="15"/><rect x="126" y="0" width="18" height="15"/><rect x="153" y="0" width="72" height="15"/><rect x="243" y="0" width="54" height="15"/><rect x="0" y="15" width="18" height="15"/><rect x="45" y="15" width="18" height="15"/><rect x="72" y="15" width="18" height="15"/><rect x="126" y="15" width="18" height="15"/><rect x="180" y="15" width="18" height="15"/><rect x="234" y="15" width="18" height="15"/><rect x="288" y="15" width="18" height="15"/><rect x="0" y="30" width="63" height="15"/><rect x="72" y="30" width="18" height="15"/><rect x="126" y="30" width="18" height="15"/><rect x="180" y="30" width="18" height="15"/><rect x="234" y="30" width="18" height="15"/><rect x="288" y="30" width="18" height="15"/><rect x="0" y="45" width="18" height="15"/><rect x="45" y="45" width="18" height="15"/><rect x="72" y="45" width="18" height="15"/><rect x="126" y="45" width="18" height="15"/><rect x="180" y="45" width="18" height="15"/><rect x="234" y="45" width="18" height="15"/><rect x="288" y="45" width="18" height="15"/><rect x="0" y="60" width="18" height="15"/><rect x="45" y="60" width="18" height="15"/><rect x="81" y="60" width="54" height="15"/><rect x="180" y="60" width="18" height="15"/><rect x="243" y="60" width="54" height="15"/></g></svg>
+<div class="splash-meta"><span class="tagline">media automations</span> <span class="dim">v1.0.1</span></div>
+</div>
+<pre><span class="rule">┌</span>
+<span class="rule">│</span>
+<span class="pick">◆</span>  Which tool?
+<span class="rule">│</span>  <span class="pick">●</span> Image Converter     <span class="dim">images to png / jpeg / webp / svg, video to mp4</span>
+<span class="rule">│</span>  ○ Background Remover  <span class="dim">strip image backgrounds with macOS Vision</span>
+<span class="rule">│</span>  ○ File Converter      <span class="dim">md / docx / html / pdf, csv / json / yaml / xlsx</span>
+<span class="rule">│</span>  ○ Media Compressor    <span class="dim">shrink images and video: normal, super, ultra</span>
+<span class="rule">│</span>  ○ quit
+<span class="rule">└</span></pre>
+          </div>
+        </div>
+        <p class="caption">The wordmark animates on launch: a glint sweeps across it once, then the menu opens.</p>
+
+        <div class="cols">
+          <div>
+            <h3>Or skip the menu entirely</h3>
+            <p>
+              Name a tool and its arguments go straight through. Handy in a script, or when you
+              have done it once already and remember what you want.
+            </p>
+          </div>
+          <div>
+            <h3>Answer nothing, or answer everything</h3>
+            <p>
+              Leave arguments off and it asks. Pass them all and it asks nothing. Formats are
+              multi-select — space toggles, or comma-separate them on the command line.
+            </p>
+          </div>
+        </div>
+
+        <div class="term" style="margin-top:var(--lg)">
+          <div class="term-bar">
+            <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+            <span class="term-title">passthrough</span>
+          </div>
+          <div class="term-body">
+<pre><span class="dim">$</span> auto convert notes.md docx,pdf      <span class="dim"># two documents, one pass</span>
+<span class="dim">$</span> auto compress ~/clips normal,ultra  <span class="dim"># an archive copy and a share copy</span>
+<span class="dim">$</span> auto bg photo.heic transparent      <span class="dim"># cut out, alpha kept</span>
+<span class="dim">$</span> auto image ~/Downloads png,webp     <span class="dim"># both formats</span></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 ─────────────────────────────────────────────────────── -->
+  <section class="chapter">
+    <div class="shell">
+      <div class="chapter-head">
+        <div class="chapter-num" aria-hidden="true">Three</div>
+        <div>
+          <h2>Making things smaller</h2>
+          <p class="lede">
+            Three levels. <code>normal</code> is
+            visually lossless at original dimensions;
+            <code>super</code> and
+            <code>ultra</code> also cap the long edge.
+          </p>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="term">
+          <div class="term-bar">
+            <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+            <span class="term-title">auto compress</span>
+          </div>
+          <div class="term-body">
+<pre><span class="mark">◒</span>  [1/4] clip.mov -> ultra — encoding H.264 74% <span class="dim">[3s]</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> clip-normal.mov   <span class="dim">6.3 MB -> 2.8 MB (-56%)</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> clip-ultra.mov    <span class="dim">6.3 MB -> 455 KB (-93%)</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> photo-ultra.jpg   <span class="dim">3.9 MB -> 62 KB (-98%)</span>
+<span class="rule">│</span>
+<span class="rule">└</span>  Freed 3.9 MB</pre>
+          </div>
+        </div>
+        <p class="caption">Long encodes count up a real percentage, so a slow job never looks like a hang.</p>
+
+        <table class="ledger">
+          <caption>Measured on one folder: a 4&nbsp;MB phone photo, a UI screenshot, and a 5-second 4K clip.</caption>
+          <thead>
+            <tr><th scope="col">Level</th><th scope="col">Whole folder</th><th scope="col">What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">normal</th>
+              <td class="num">−60%</td>
+              <td>Visually lossless. Dimensions untouched.</td>
+            </tr>
+            <tr>
+              <th scope="row">super</th>
+              <td class="num">−86%</td>
+              <td>Images capped at 2560px, video at 1080p.</td>
+            </tr>
+            <tr>
+              <th scope="row">ultra</th>
+              <td class="num">−95%</td>
+              <td>Images capped at 1600px, video at 720p30.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="cols">
+          <div>
+            <h3>It refuses a bad trade</h3>
+            <p>
+              If a file would shrink by less than 5%, the result is thrown away and your original
+              kept. You get <em>already well compressed</em> instead of a slightly worse file for
+              nothing.
+            </p>
+          </div>
+          <div>
+            <h3>Formats stay put</h3>
+            <p>
+              A compressor that quietly turns your PNGs into JPEGs is a nasty surprise. Video
+              becomes H.264 and AAC, which plays everywhere. Nothing is ever upscaled.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 ─────────────────────────────────────────────────────── -->
+  <section class="chapter">
+    <div class="shell">
+      <div class="chapter-head">
+        <div class="chapter-num" aria-hidden="true">Four</div>
+        <div>
+          <h2>Cutting the subject out</h2>
+          <p class="lede">
+            Point it at a photo, or a folder of them. Output is PNG with a real alpha channel, or
+            flattened onto any colour you name, and you can ask for several at once.
+          </p>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="term">
+          <div class="term-bar">
+            <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+            <span class="term-title">auto bg</span>
+          </div>
+          <div class="term-body">
+<pre><span class="dim">$</span> auto bg photo.jpg transparent,white
+<span class="rule">│</span>
+<span class="dim">◇</span>  1 image detected
+<span class="mark">◒</span>  [1/2] photo.jpg -> transparent — detecting subjects <span class="dim">[0s]</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> photo.jpg -> photo-transparent.png
+<span class="dim">◇</span>  <span class="ok">✓</span> photo.jpg -> photo-white.png
+<span class="rule">│</span>
+<span class="rule">└</span>  Done! Files saved to no-bg/</pre>
+          </div>
+        </div>
+
+        <div class="cols">
+          <div>
+            <h3>Every file says which setting made it</h3>
+            <p>
+              <code>photo-transparent.png</code>,
+              <code>photo-white.png</code>. Variants can
+              never overwrite each other, and asking for a new background is never mistaken for work
+              already finished.
+            </p>
+          </div>
+          <div>
+            <h3>Phone photos come out upright</h3>
+            <p>
+              EXIF orientation is applied before the mask, so a portrait HEIC does not arrive on its
+              side. Images with no subject are reported as skipped, not as failures.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 ─────────────────────────────────────────────────────── -->
+  <section class="chapter">
+    <div class="shell">
+      <div class="chapter-head">
+        <div class="chapter-num" aria-hidden="true">Five</div>
+        <div>
+          <h2>Documents and data</h2>
+          <p class="lede">
+            Markdown to Word or PDF, spreadsheets to JSON, a video to a GIF. A folder holding
+            several kinds asks once per kind, so one pass handles all of it.
+          </p>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="matrix">
+          <div class="mrow"><div class="mcell"><span class="mono-tag">md</span></div><div class="mcell"><span class="mono-tag">docx</span><span class="mono-tag">pdf</span><span class="mono-tag">html</span></div></div>
+          <div class="mrow"><div class="mcell"><span class="mono-tag">docx</span></div><div class="mcell"><span class="mono-tag">md</span><span class="mono-tag">pdf</span><span class="mono-tag">html</span></div></div>
+          <div class="mrow"><div class="mcell"><span class="mono-tag">html</span></div><div class="mcell"><span class="mono-tag">pdf</span><span class="mono-tag">md</span><span class="mono-tag">docx</span></div></div>
+          <div class="mrow"><div class="mcell"><span class="mono-tag">csv</span><span class="mono-tag">json</span><span class="mono-tag">yaml</span><span class="mono-tag">xlsx</span></div><div class="mcell"><span class="small" style="color:var(--body)">any of the others</span></div></div>
+          <div class="mrow"><div class="mcell"><span class="mono-tag">mp4</span><span class="mono-tag">mov</span><span class="mono-tag">mkv</span><span class="mono-tag">webm</span></div><div class="mcell"><span class="mono-tag">gif</span><span class="mono-tag">mp3</span></div></div>
+          <div class="mrow"><div class="mcell"><span class="mono-tag">wav</span><span class="mono-tag">m4a</span><span class="mono-tag">flac</span><span class="mono-tag">ogg</span></div><div class="mcell"><span class="mono-tag">mp3</span></div></div>
+        </div>
+
+        <div class="cols">
+          <div>
+            <h3>Headings become real headings</h3>
+            <p>
+              <code>#</code> through
+              <code>######</code> map onto Word's own
+              Heading&nbsp;1–6 styles, so the navigation pane and a table of contents actually work
+              rather than the text merely looking bigger.
+            </p>
+          </div>
+          <div>
+            <h3>A4, and properly paginated</h3>
+            <p>
+              Both <code>.docx</code> and
+              <code>.pdf</code> come out A4 with 2cm
+              margins. Tables and code blocks are kept whole across page breaks, and a heading is
+              never stranded at the foot of a page.
+            </p>
+          </div>
+          <div>
+            <h3>Markdown survives the round trip</h3>
+            <p>
+              <code>md → docx → md</code> comes back
+              intact for headings, tables, lists, links, bold, and both fenced and inline code. This
+              page's own source was the test.
+            </p>
+          </div>
+          <div>
+            <h3>GIFs get two passes</h3>
+            <p>
+              A palette is built from the clip, then the clip is encoded against it. One pass falls
+              back to the 216-colour web palette and bands visibly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 ─────────────────────────────────────────────────────── -->
+  <section class="chapter">
+    <div class="shell">
+      <div class="chapter-head">
+        <div class="chapter-num" aria-hidden="true">Six</div>
+        <div>
+          <h2>Images and video, format to format</h2>
+          <p class="lede">
+            24 image formats in, including HEIC and camera RAW from most brands, plus 21 video
+            containers. Video is normalised to MP4.
+          </p>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="term">
+          <div class="term-bar">
+            <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
+            <span class="term-title">auto image</span>
+          </div>
+          <div class="term-body">
+<pre><span class="dim">$</span> auto image IMG_1335.HEIC png,webp
+<span class="rule">│</span>
+<span class="mark">◒</span>  [1/2] IMG_1335.HEIC -> .png — decoding with sips <span class="dim">[0s]</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> IMG_1335.HEIC -> IMG_1335.png   <span class="dim">21.6 MB</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> IMG_1335.HEIC -> IMG_1335.webp  <span class="dim">3.1 MB</span></pre>
+          </div>
+        </div>
+
+        <div class="cols">
+          <div>
+            <h3>It tries three decoders before giving up</h3>
+            <p>
+              sharp first, then macOS <code>sips</code>,
+              then ImageMagick if you have it. That cascade is why HEIC and RAW work where a single
+              library would fail.
+            </p>
+          </div>
+          <div>
+            <h3>SVG asks what you mean</h3>
+            <p>
+              Wrapping the pixels is not the same as tracing vector paths, so it offers both, plus two
+              stylised traces. Tracing needs <code>vtracer</code>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 ─────────────────────────────────────────────────────── -->
+  <section class="chapter">
+    <div class="shell">
+      <div class="chapter-head">
+        <div class="chapter-num" aria-hidden="true">Seven</div>
+        <div>
+          <h2>The habits that make it safe to run twice</h2>
+          <p class="lede">
+            The parts you stop thinking about after a week, which are the parts that matter when
+            you point a batch tool at a folder you care about.
+          </p>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="cols">
+          <div>
+            <h3>Your originals are never modified</h3>
+            <p>
+              Results land in a sibling folder beside whatever you pointed at:
+              <code>converted/</code>,
+              <code>no-bg/</code>,
+              <code>compressed/</code>.
+            </p>
+          </div>
+          <div>
+            <h3>Running it again does nothing</h3>
+            <p>
+              Work whose output already exists, and whose source has not changed since, is skipped.
+              Edit one file and only that one is redone.
+            </p>
+          </div>
+          <div>
+            <h3>One failure never stops the batch</h3>
+            <p>
+              A file that cannot be read is reported and the run continues, with a tally at the end:
+              how many done, how many skipped and why, how many failed.
+            </p>
+          </div>
+          <div>
+            <h3><code>~</code> works everywhere</h3>
+            <p>
+              In the shell, and typed into a prompt where no shell is there to expand it. Press
+              Ctrl-C at any question to leave cleanly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="orb" style="width:460px;height:460px;background:var(--g-sky);bottom:-200px;left:-110px;opacity:.4"></div>
+    <div class="orb" style="width:340px;height:340px;background:var(--g-rose);bottom:-120px;left:230px;opacity:.3"></div>
+    <div class="shell">
+      <h2>Point it at a folder and see what happens.</h2>
+      <div class="install">
+        <div class="cmd">
+          <span class="prompt" aria-hidden="true">$</span>
+          <code>npm install -g my_media_automations</code>
+          <button class="copy" type="button" data-copy="npm install -g my_media_automations" aria-label="Copy install command">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
+            <span data-copy-label>Copy</span>
+          </button>
+        </div>
+        <a class="pill pill-outline" href="https://www.npmjs.com/package/my_media_automations">View on npm</a>
+      </div>
+
+      <div class="limits">
+        <h3>Worth knowing before you do</h3>
+        <ul>
+          <li><strong>macOS 14 or newer only.</strong> The Vision API it depends on arrived in 14, so npm refuses to install it on Linux or Windows rather than failing strangely later.</li>
+          <li>Xcode Command Line Tools are required (<code>xcode-select --install</code>) because the two Swift helpers compile on first use.</li>
+          <li><code>ffmpeg</code> is needed for video and audio only. Everything else is built in.</li>
+          <li>Only the first sheet of a multi-sheet <code>.xlsx</code> is converted. It warns you when it sees more.</li>
+          <li><code>npm audit</code> reports one moderate advisory reached through <code>exceljs</code>, which has no newer release. It only applies to a code path <code>exceljs</code> does not use, and only <code>.xlsx</code> work touches it at all.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell">
+    <p class="small">
+      Free and open source under ISC. Built by
+      <a href="https://github.com/sidhxntt">sidhxntt</a>.
+    </p>
+    <nav>
+      <a href="https://www.npmjs.com/package/my_media_automations">npm</a>
+      <a href="https://github.com/sidhxntt/media_automations">Source</a>
+      <a href="https://github.com/sidhxntt/media_automations/releases">Releases</a>
+      <a href="https://github.com/sidhxntt/media_automations/issues">Report an issue</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+// Copy the install command, and say so.
+document.querySelectorAll('[data-copy]').forEach(function (button) {
+  button.addEventListener('click', async function () {
+    var label = button.querySelector('[data-copy-label]');
+    try {
+      await navigator.clipboard.writeText(button.dataset.copy);
+    } catch (error) {
+      // Clipboard blocked (insecure context, denied permission): select it instead
+      // so the keyboard shortcut still works rather than leaving a dead button.
+      var code = button.parentElement.querySelector('code');
+      if (code) {
+        var range = document.createRange();
+        range.selectNodeContents(code);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+      label.textContent = 'Press ⌘C';
+      button.dataset.copied = 'true';
+      window.setTimeout(function () {
+        label.textContent = 'Copy';
+        button.dataset.copied = 'false';
+      }, 2600);
+      return;
+    }
+    label.textContent = 'Copied';
+    button.dataset.copied = 'true';
+    window.setTimeout(function () {
+      label.textContent = 'Copy';
+      button.dataset.copied = 'false';
+    }, 1800);
+  });
+});
+
+// The authored moment: the wordmark glints once when it first comes into view,
+// exactly as it does when the CLI launches. Nothing is hidden beforehand, so a
+// browser that never runs this still shows the whole panel.
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var glintTargets = document.querySelectorAll('[data-glint]');
+
+if (!reduced && 'IntersectionObserver' in window) {
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('glint');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.3 });
+  glintTargets.forEach(function (node) { observer.observe(node); });
+}
+</script>
+</body>
+</html>
