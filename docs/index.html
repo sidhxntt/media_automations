@@ -49,9 +49,12 @@ a:not([class]){text-decoration:underline; text-decoration-color:var(--hairline-s
 a:not([class]):hover{text-decoration-color:var(--ink)}
 code{font-family:var(--mono); font-size:14px; letter-spacing:0}
 :focus-visible{outline:2px solid var(--ink); outline-offset:3px; border-radius:4px}
+/* An ink ring is invisible on the near-black command bar, so dark surfaces get
+   a light one. */
+.cmd :focus-visible,.term :focus-visible{outline-color:#fafafa}
 .shell{max-width:var(--shell); margin:0 auto; padding:0 var(--lg)}
 .lede{font-size:18px; line-height:1.55; color:var(--body); max-width:60ch}
-.small{font-size:14px; line-height:1.5; letter-spacing:0; color:var(--muted)}
+.small{font-size:14px; line-height:1.5; letter-spacing:0; color:var(--body)}
 
 /* ── atmosphere: pastel orbs, decoration only ─────────────── */
 .orb{position:absolute; border-radius:50%; filter:blur(56px); opacity:.5; pointer-events:none; z-index:0}
@@ -59,7 +62,7 @@ code{font-family:var(--mono); font-size:14px; letter-spacing:0}
 /* ── masthead ──────────────────────────────────────────────── */
 .masthead{
   position:sticky; top:0; z-index:20; height:64px; display:flex; align-items:center;
-  background:rgba(245,245,245,.86); backdrop-filter:blur(10px);
+  background:var(--canvas);
   border-bottom:1px solid var(--hairline-soft);
 }
 .masthead .shell{display:flex; align-items:center; gap:var(--base); width:100%}
@@ -95,7 +98,6 @@ code{font-family:var(--mono); font-size:14px; letter-spacing:0}
   border-radius:var(--pill); background:var(--surface-strong); color:var(--ink);
   font-size:12px; font-weight:600; letter-spacing:.96px; text-transform:uppercase;
 }
-.badge svg{width:12px; height:12px}
 
 /* install block: the primary action */
 .install{margin-top:var(--xl); display:flex; flex-wrap:wrap; gap:var(--sm); align-items:center}
@@ -108,18 +110,20 @@ code{font-family:var(--mono); font-size:14px; letter-spacing:0}
 .cmd .prompt{color:var(--g-mint); user-select:none}
 .copy{
   flex:none; display:inline-flex; align-items:center; gap:6px; height:32px; padding:0 12px;
-  border-radius:var(--pill); border:1px solid rgba(255,255,255,.18); background:transparent;
+  border-radius:var(--pill); border:1px solid rgba(255,255,255,.42); background:transparent;
   color:var(--on-dark); font-family:var(--sans); font-size:13px; font-weight:500; cursor:pointer;
   transition:background-color .18s ease, border-color .18s ease;
 }
 .copy:hover{background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.32)}
 .copy svg{width:13px; height:13px}
 .copy[data-copied="true"]{border-color:var(--g-mint); color:var(--g-mint)}
-.reqline{margin-top:var(--base); font-size:14px; color:var(--muted); letter-spacing:0}
+.reqline{margin-top:var(--base); font-size:14px; color:var(--body); letter-spacing:0}
 .reqline strong{color:var(--body-strong,#292524); font-weight:500}
 
 /* ── chapters ──────────────────────────────────────────────── */
 .chapter{border-top:1px solid var(--hairline); padding:var(--section) 0}
+.chapter.has-orb{position:relative; overflow:hidden}
+.chapter.has-orb .shell{position:relative; z-index:1}
 .chapter-head{display:grid; grid-template-columns:56px 1fr; gap:var(--lg); align-items:start}
 .chapter-num{
   font-family:var(--display); font-size:15px; color:var(--muted-soft);
@@ -154,7 +158,7 @@ code{font-family:var(--mono); font-size:14px; letter-spacing:0}
 .ok{color:var(--g-mint)}
 .mark{color:var(--g-peach)}
 .pick{color:var(--g-sky)}
-.caption{margin-top:var(--sm); font-size:13px; color:var(--muted); letter-spacing:0}
+.caption{margin-top:var(--sm); font-size:13.5px; color:var(--body); letter-spacing:0}
 
 /* the splash, in its real gradient */
 .splash{margin:0 0 var(--base)}
@@ -164,11 +168,11 @@ code{font-family:var(--mono); font-size:14px; letter-spacing:0}
 
 /* ── measured results table ────────────────────────────────── */
 .ledger{width:100%; border-collapse:collapse; margin-top:var(--lg)}
-.ledger caption{text-align:left; font-size:13px; color:var(--muted); padding-bottom:var(--sm); letter-spacing:0}
+.ledger caption{text-align:left; font-size:13.5px; color:var(--body); padding-bottom:var(--sm); letter-spacing:0}
 .ledger th,.ledger td{padding:14px var(--base); text-align:left; border-bottom:1px solid var(--hairline)}
 .ledger thead th{
   font-size:12px; font-weight:600; letter-spacing:.96px; text-transform:uppercase;
-  color:var(--muted); border-bottom-color:var(--hairline-strong);
+  color:var(--body); border-bottom-color:var(--hairline-strong);
 }
 .ledger tbody th{font-family:var(--mono); font-size:13px; font-weight:400; color:var(--ink); letter-spacing:0}
 .ledger td{font-size:15px; color:var(--body)}
@@ -189,10 +193,10 @@ code{font-family:var(--mono); font-size:14px; letter-spacing:0}
 .arrow{color:var(--muted-soft); margin:0 6px}
 .compare-grid .mrow{grid-template-columns:repeat(2,minmax(0,1fr))}
 .compare-grid .mcell{font-size:15px; line-height:1.5; color:var(--body)}
-.compare-grid .mcell:first-child{background:var(--canvas-soft); color:var(--muted)}
+.compare-grid .mcell:first-child{background:var(--canvas-soft); color:var(--body)}
 .compare-grid .mhead .mcell{
   font-size:12px; font-weight:600; letter-spacing:.96px; text-transform:uppercase;
-  color:var(--muted); background:var(--surface-strong);
+  color:var(--body); background:var(--surface-strong);
 }
 .compare-grid .mhead .mcell:last-child{color:var(--ink)}
 
@@ -202,7 +206,7 @@ code{font-family:var(--mono); font-size:14px; letter-spacing:0}
 .close h2{max-width:24ch; text-wrap:balance}
 .close .install{margin-top:var(--lg)}
 .limits{margin-top:var(--xxl); padding-top:var(--lg); border-top:1px solid var(--hairline); max-width:70ch}
-.limits h3{font-size:14px; font-weight:600; letter-spacing:.96px; text-transform:uppercase; color:var(--muted); margin-bottom:var(--sm)}
+.limits h3{font-size:14px; font-weight:600; letter-spacing:.96px; text-transform:uppercase; color:var(--body); margin-bottom:var(--sm)}
 .limits ul{margin:0; padding-left:1.1em; font-size:14.5px; color:var(--body)}
 .limits li + li{margin-top:var(--xs)}
 
@@ -290,15 +294,12 @@ footer nav a:hover{color:var(--ink)}
 <main id="top">
 
   <section class="opening">
-    <div class="orb" style="width:520px;height:520px;background:var(--g-mint);top:-190px;right:-90px"></div>
-    <div class="orb" style="width:420px;height:420px;background:var(--g-lavender);top:40px;right:210px;opacity:.42"></div>
+    <div class="orb" style="width:520px;height:520px;background:var(--g-mint);top:-120px;right:-90px"></div>
+    <div class="orb" style="width:420px;height:420px;background:var(--g-lavender);top:96px;right:210px;opacity:.42"></div>
     <div class="orb" style="width:300px;height:300px;background:var(--g-peach);top:320px;right:-40px;opacity:.34"></div>
     <div class="shell">
       <div class="badges">
-        <span class="badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a5 5 0 0 0-5 5c0 4-2 5-2 5h14s-2-1-2-5a5 5 0 0 0-5-5Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
-          macOS only
-        </span>
+        <span class="badge">macOS only</span>
         <span class="badge">Free &amp; open source</span>
       </div>
 
@@ -309,11 +310,11 @@ footer nav a:hover{color:var(--ink)}
         a whole folder; it never touches your originals.
       </p>
 
-      <div class="install" id="install">
+      <div class="install" id="install" style="scroll-margin-top:80px">
         <div class="cmd">
           <span class="prompt" aria-hidden="true">$</span>
           <code id="install-cmd">npm install -g my_media_automations</code>
-          <button class="copy" type="button" data-copy="npm install -g my_media_automations" aria-label="Copy install command">
+          <button class="copy" type="button" data-copy="npm install -g my_media_automations" aria-label="Copy install command" aria-live="polite">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
             <span data-copy-label>Copy</span>
           </button>
@@ -397,9 +398,9 @@ footer nav a:hover{color:var(--ink)}
             <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
             <span class="term-title">auto</span>
           </div>
-          <div class="term-body">
+          <div class="term-body" tabindex="0" role="group">
 <div class="splash">
-<svg class="wm" viewBox="0 0 306 75" width="306" height="75" role="img" aria-label="AUTO" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="wmg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><g fill="url(#wmg)"><rect x="9" y="0" width="45" height="15"/><rect x="72" y="0" width="18" height="15"/><rect x="126" y="0" width="18" height="15"/><rect x="153" y="0" width="72" height="15"/><rect x="243" y="0" width="54" height="15"/><rect x="0" y="15" width="18" height="15"/><rect x="45" y="15" width="18" height="15"/><rect x="72" y="15" width="18" height="15"/><rect x="126" y="15" width="18" height="15"/><rect x="180" y="15" width="18" height="15"/><rect x="234" y="15" width="18" height="15"/><rect x="288" y="15" width="18" height="15"/><rect x="0" y="30" width="63" height="15"/><rect x="72" y="30" width="18" height="15"/><rect x="126" y="30" width="18" height="15"/><rect x="180" y="30" width="18" height="15"/><rect x="234" y="30" width="18" height="15"/><rect x="288" y="30" width="18" height="15"/><rect x="0" y="45" width="18" height="15"/><rect x="45" y="45" width="18" height="15"/><rect x="72" y="45" width="18" height="15"/><rect x="126" y="45" width="18" height="15"/><rect x="180" y="45" width="18" height="15"/><rect x="234" y="45" width="18" height="15"/><rect x="288" y="45" width="18" height="15"/><rect x="0" y="60" width="18" height="15"/><rect x="45" y="60" width="18" height="15"/><rect x="81" y="60" width="54" height="15"/><rect x="180" y="60" width="18" height="15"/><rect x="243" y="60" width="54" height="15"/></g></svg>
+<svg class="wm" viewBox="0 0 306 75" width="306" height="75" role="img" aria-label="AUTO" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="wmg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><g fill="url(#wmg)"><rect x="9" y="0" width="45" height="15"/><rect x="153" y="0" width="72" height="15"/><rect x="234" y="0" width="72" height="15"/><rect x="0" y="15" width="18" height="15"/><rect x="45" y="15" width="18" height="15"/><rect x="72" y="15" width="18" height="15"/><rect x="126" y="15" width="18" height="15"/><rect x="180" y="15" width="18" height="15"/><rect x="234" y="15" width="18" height="15"/><rect x="288" y="15" width="18" height="15"/><rect x="0" y="30" width="63" height="15"/><rect x="72" y="30" width="18" height="15"/><rect x="126" y="30" width="18" height="15"/><rect x="180" y="30" width="18" height="15"/><rect x="234" y="30" width="18" height="15"/><rect x="288" y="30" width="18" height="15"/><rect x="0" y="45" width="18" height="15"/><rect x="45" y="45" width="18" height="15"/><rect x="72" y="45" width="18" height="15"/><rect x="126" y="45" width="18" height="15"/><rect x="180" y="45" width="18" height="15"/><rect x="234" y="45" width="18" height="15"/><rect x="288" y="45" width="18" height="15"/><rect x="0" y="60" width="18" height="15"/><rect x="45" y="60" width="18" height="15"/><rect x="72" y="60" width="72" height="15"/><rect x="180" y="60" width="18" height="15"/><rect x="234" y="60" width="72" height="15"/></g></svg>
 <div class="splash-meta"><span class="tagline">media automations</span> <span class="dim">v1.0.1</span></div>
 </div>
 <pre><span class="rule">┌</span>
@@ -437,7 +438,7 @@ footer nav a:hover{color:var(--ink)}
             <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
             <span class="term-title">passthrough</span>
           </div>
-          <div class="term-body">
+          <div class="term-body" tabindex="0" role="group">
 <pre><span class="dim">$</span> auto convert notes.md docx,pdf      <span class="dim"># two documents, one pass</span>
 <span class="dim">$</span> auto compress ~/clips normal,ultra  <span class="dim"># an archive copy and a share copy</span>
 <span class="dim">$</span> auto bg photo.heic transparent      <span class="dim"># cut out, alpha kept</span>
@@ -454,12 +455,10 @@ footer nav a:hover{color:var(--ink)}
       <div class="chapter-head">
         <div class="chapter-num" aria-hidden="true">Three</div>
         <div>
-          <h2>Making things smaller</h2>
+          <h2>Images and video, format to format</h2>
           <p class="lede">
-            Three levels. <code>normal</code> is
-            visually lossless at original dimensions;
-            <code>super</code> and
-            <code>ultra</code> also cap the long edge.
+            24 image formats in, including HEIC and camera RAW from most brands, plus 21 video
+            containers. Video is normalised to MP4.
           </p>
         </div>
       </div>
@@ -467,57 +466,31 @@ footer nav a:hover{color:var(--ink)}
         <div class="term">
           <div class="term-bar">
             <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-            <span class="term-title">auto compress</span>
+            <span class="term-title">auto image</span>
           </div>
-          <div class="term-body">
-<pre><span class="mark">◒</span>  [1/4] clip.mov -> ultra — encoding H.264 74% <span class="dim">[3s]</span>
-<span class="dim">◇</span>  <span class="ok">✓</span> clip-normal.mov   <span class="dim">6.3 MB -> 2.8 MB (-56%)</span>
-<span class="dim">◇</span>  <span class="ok">✓</span> clip-ultra.mov    <span class="dim">6.3 MB -> 455 KB (-93%)</span>
-<span class="dim">◇</span>  <span class="ok">✓</span> photo-ultra.jpg   <span class="dim">3.9 MB -> 62 KB (-98%)</span>
+          <div class="term-body" tabindex="0" role="group">
+<pre><span class="dim">$</span> auto image IMG_1335.HEIC png,webp
 <span class="rule">│</span>
-<span class="rule">└</span>  Freed 3.9 MB</pre>
+<span class="mark">◒</span>  [1/2] IMG_1335.HEIC -> .png — decoding with sips <span class="dim">[0s]</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> IMG_1335.HEIC -> IMG_1335.png   <span class="dim">21.6 MB</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> IMG_1335.HEIC -> IMG_1335.webp  <span class="dim">3.1 MB</span></pre>
           </div>
         </div>
-        <p class="caption">Long encodes count up a real percentage, so a slow job never looks like a hang.</p>
-
-        <table class="ledger">
-          <caption>Measured on one folder: a 4&nbsp;MB phone photo, a UI screenshot, and a 5-second 4K clip.</caption>
-          <thead>
-            <tr><th scope="col">Level</th><th scope="col">Whole folder</th><th scope="col">What it does</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">normal</th>
-              <td class="num">−60%</td>
-              <td>Visually lossless. Dimensions untouched.</td>
-            </tr>
-            <tr>
-              <th scope="row">super</th>
-              <td class="num">−86%</td>
-              <td>Images capped at 2560px, video at 1080p.</td>
-            </tr>
-            <tr>
-              <th scope="row">ultra</th>
-              <td class="num">−95%</td>
-              <td>Images capped at 1600px, video at 720p30.</td>
-            </tr>
-          </tbody>
-        </table>
 
         <div class="cols">
           <div>
-            <h3>It refuses a bad trade</h3>
+            <h3>It tries three decoders before giving up</h3>
             <p>
-              If a file would shrink by less than 5%, the result is thrown away and your original
-              kept. You get <em>already well compressed</em> instead of a slightly worse file for
-              nothing.
+              sharp first, then macOS <code>sips</code>,
+              then ImageMagick if you have it. That cascade is why HEIC and RAW work where a single
+              library would fail.
             </p>
           </div>
           <div>
-            <h3>Formats stay put</h3>
+            <h3>SVG asks what you mean</h3>
             <p>
-              A compressor that quietly turns your PNGs into JPEGs is a nasty surprise. Video
-              becomes H.264 and AAC, which plays everywhere. Nothing is ever upscaled.
+              Wrapping the pixels is not the same as tracing vector paths, so it offers both, plus two
+              stylised traces. Tracing needs <code>vtracer</code>.
             </p>
           </div>
         </div>
@@ -526,8 +499,9 @@ footer nav a:hover{color:var(--ink)}
   </section>
 
   <!-- 4 ─────────────────────────────────────────────────────── -->
-  <section class="chapter">
-    <div class="shell">
+  <section class="chapter has-orb">
+    <div class="orb" style="width:380px;height:380px;background:var(--g-peach);top:120px;left:-160px;opacity:.3"></div>
+      <div class="shell">
       <div class="chapter-head">
         <div class="chapter-num" aria-hidden="true">Four</div>
         <div>
@@ -544,7 +518,7 @@ footer nav a:hover{color:var(--ink)}
             <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
             <span class="term-title">auto bg</span>
           </div>
-          <div class="term-body">
+          <div class="term-body" tabindex="0" role="group">
 <pre><span class="dim">$</span> auto bg photo.jpg transparent,white
 <span class="rule">│</span>
 <span class="dim">◇</span>  1 image detected
@@ -624,8 +598,8 @@ footer nav a:hover{color:var(--ink)}
             <h3>Markdown survives the round trip</h3>
             <p>
               <code>md → docx → md</code> comes back
-              intact for headings, tables, lists, links, bold, and both fenced and inline code. This
-              page's own source was the test.
+              intact for headings, tables, lists, links, bold, and both fenced and inline code.
+              The project's own 300-line readme was the test case.
             </p>
           </div>
           <div>
@@ -641,15 +615,18 @@ footer nav a:hover{color:var(--ink)}
   </section>
 
   <!-- 6 ─────────────────────────────────────────────────────── -->
-  <section class="chapter">
-    <div class="shell">
+  <section class="chapter has-orb">
+    <div class="orb" style="width:340px;height:340px;background:var(--g-mint);top:200px;right:-140px;opacity:.28"></div>
+      <div class="shell">
       <div class="chapter-head">
         <div class="chapter-num" aria-hidden="true">Six</div>
         <div>
-          <h2>Images and video, format to format</h2>
+          <h2>Making things smaller</h2>
           <p class="lede">
-            24 image formats in, including HEIC and camera RAW from most brands, plus 21 video
-            containers. Video is normalised to MP4.
+            Three levels. <code>normal</code> is
+            visually lossless at original dimensions;
+            <code>super</code> and
+            <code>ultra</code> also cap the long edge.
           </p>
         </div>
       </div>
@@ -657,31 +634,62 @@ footer nav a:hover{color:var(--ink)}
         <div class="term">
           <div class="term-bar">
             <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span>
-            <span class="term-title">auto image</span>
+            <span class="term-title">auto compress</span>
           </div>
-          <div class="term-body">
-<pre><span class="dim">$</span> auto image IMG_1335.HEIC png,webp
+          <div class="term-body" tabindex="0" role="group">
+<pre><span class="dim">$</span> auto compress ~/clips ultra
 <span class="rule">│</span>
-<span class="mark">◒</span>  [1/2] IMG_1335.HEIC -> .png — decoding with sips <span class="dim">[0s]</span>
-<span class="dim">◇</span>  <span class="ok">✓</span> IMG_1335.HEIC -> IMG_1335.png   <span class="dim">21.6 MB</span>
-<span class="dim">◇</span>  <span class="ok">✓</span> IMG_1335.HEIC -> IMG_1335.webp  <span class="dim">3.1 MB</span></pre>
+<span class="mark">◒</span>  [3/3] screenshot.png -> ultra — resizing and encoding <span class="dim">[0s]</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> clip-ultra.mov         <span class="dim">5.3 MB -> 356 KB (-93%)</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> photo-ultra.jpg        <span class="dim">3.9 MB -> 62 KB (-98%)</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> screenshot-ultra.png   <span class="dim">1.8 MB -> 447 KB (-75%)</span>
+<span class="rule">│</span>
+<span class="rule">│</span>  ✓ Compressed: 3
+<span class="rule">│</span>  11.0 MB -> 865 KB (-92%)
+<span class="rule">│</span>  Freed 10.1 MB
+<span class="rule">└</span>  Done! Files saved to compressed/</pre>
           </div>
         </div>
+        <p class="caption">Long encodes count up a real percentage, so a slow job never looks like a hang.</p>
+
+        <table class="ledger">
+          <caption>Measured on one folder: a 4&nbsp;MB phone photo, a UI screenshot, and a 5-second 4K clip.</caption>
+          <thead>
+            <tr><th scope="col">Level</th><th scope="col">Whole folder</th><th scope="col">What it does</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">normal</th>
+              <td class="num">−60%</td>
+              <td>Visually lossless. Dimensions untouched.</td>
+            </tr>
+            <tr>
+              <th scope="row">super</th>
+              <td class="num">−86%</td>
+              <td>Images capped at 2560px, video at 1080p.</td>
+            </tr>
+            <tr>
+              <th scope="row">ultra</th>
+              <td class="num">−95%</td>
+              <td>Images capped at 1600px, video at 720p30.</td>
+            </tr>
+          </tbody>
+        </table>
 
         <div class="cols">
           <div>
-            <h3>It tries three decoders before giving up</h3>
+            <h3>It refuses a bad trade</h3>
             <p>
-              sharp first, then macOS <code>sips</code>,
-              then ImageMagick if you have it. That cascade is why HEIC and RAW work where a single
-              library would fail.
+              If a file would shrink by less than 5%, the result is thrown away and your original
+              kept. You get <em>already well compressed</em> instead of a slightly worse file for
+              nothing.
             </p>
           </div>
           <div>
-            <h3>SVG asks what you mean</h3>
+            <h3>Formats stay put</h3>
             <p>
-              Wrapping the pixels is not the same as tracing vector paths, so it offers both, plus two
-              stylised traces. Tracing needs <code>vtracer</code>.
+              A compressor that quietly turns your PNGs into JPEGs is a nasty surprise. Video
+              becomes H.264 and AAC, which plays everywhere. Nothing is ever upscaled.
             </p>
           </div>
         </div>
@@ -815,7 +823,7 @@ footer nav a:hover{color:var(--ink)}
         <div class="cmd">
           <span class="prompt" aria-hidden="true">$</span>
           <code>npm install -g my_media_automations</code>
-          <button class="copy" type="button" data-copy="npm install -g my_media_automations" aria-label="Copy install command">
+          <button class="copy" type="button" data-copy="npm install -g my_media_automations" aria-label="Copy install command" aria-live="polite">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
             <span data-copy-label>Copy</span>
           </button>
@@ -830,7 +838,7 @@ footer nav a:hover{color:var(--ink)}
           <li>Xcode Command Line Tools are required (<code>xcode-select --install</code>) because the two Swift helpers compile on first use.</li>
           <li><code>ffmpeg</code> is needed for video and audio only. Everything else is built in.</li>
           <li>Only the first sheet of a multi-sheet <code>.xlsx</code> is converted. It warns you when it sees more.</li>
-          <li><code>npm audit</code> reports one moderate advisory reached through <code>exceljs</code>, which has no newer release. It only applies to a code path <code>exceljs</code> does not use, and only <code>.xlsx</code> work touches it at all.</li>
+          <li><code>npm audit</code> reports one moderate advisory reached through <code>exceljs</code>, which has no newer release. Only <code>.xlsx</code> conversion touches that dependency at all.</li>
         </ul>
       </div>
     </div>
