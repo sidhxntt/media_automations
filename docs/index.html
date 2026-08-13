@@ -187,6 +187,14 @@ code{font-family:var(--mono); font-size:14px; letter-spacing:0}
 .mono-tag{font-family:var(--mono); font-size:13px; color:var(--ink); letter-spacing:0}
 .mcell .mono-tag + .mono-tag{margin-left:var(--xs)}
 .arrow{color:var(--muted-soft); margin:0 6px}
+.compare-grid .mrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+.compare-grid .mcell{font-size:15px; line-height:1.5; color:var(--body)}
+.compare-grid .mcell:first-child{background:var(--canvas-soft); color:var(--muted)}
+.compare-grid .mhead .mcell{
+  font-size:12px; font-weight:600; letter-spacing:.96px; text-transform:uppercase;
+  color:var(--muted); background:var(--surface-strong);
+}
+.compare-grid .mhead .mcell:last-child{color:var(--ink)}
 
 /* ── close ─────────────────────────────────────────────────── */
 .close{border-top:1px solid var(--hairline); padding:var(--section) 0; position:relative; overflow:hidden}
@@ -224,6 +232,10 @@ footer nav a:hover{color:var(--ink)}
 
 @media (max-width:900px){
   .cols{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .compare-grid .mrow{grid-template-columns:1fr}
+  .compare-grid .mcell:first-child{padding-bottom:6px}
 }
 @media (max-width:720px){
   :root{--section:64px}
@@ -720,6 +732,73 @@ footer nav a:hover{color:var(--ink)}
             <p>
               In the shell, and typed into a prompt where no shell is there to expand it. Press
               Ctrl-C at any question to leave cleanly.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter compare">
+    <div class="shell">
+      <div class="chapter-head">
+        <div class="chapter-num" aria-hidden="true"></div>
+        <div>
+          <h2>Why not just use a website?</h2>
+          <p class="lede">
+            The free converters in a browser tab are genuinely convenient, and for one file they
+            are hard to argue with. The differences below are structural, not marketing: they
+            follow from where the work happens.
+          </p>
+        </div>
+      </div>
+      <div class="chapter-body">
+        <div class="matrix compare-grid">
+          <div class="mrow mhead">
+            <div class="mcell">Uploading to a converter site</div>
+            <div class="mcell">Running on your machine</div>
+          </div>
+          <div class="mrow">
+            <div class="mcell">Your file goes to someone else's server, and their retention policy becomes your problem.</div>
+            <div class="mcell">Nothing leaves your disk. No account, no upload, no telemetry.</div>
+          </div>
+          <div class="mrow">
+            <div class="mcell">A 4K clip travels up and comes back down before you can use it.</div>
+            <div class="mcell">The bytes never move off the SSD, so there is no round trip to wait through.</div>
+          </div>
+          <div class="mrow">
+            <div class="mcell">Usually one file at a time. Real batching tends to sit behind a subscription.</div>
+            <div class="mcell">Point it at a folder. Forty files is the same command as one.</div>
+          </div>
+          <div class="mrow">
+            <div class="mcell">Free tiers cap file size, watermark the output, or meter you per day.</div>
+            <div class="mcell">No caps, no watermark, no metering. Your free disk space is the limit.</div>
+          </div>
+          <div class="mrow">
+            <div class="mcell">You cannot put a browser tab inside a shell script.</div>
+            <div class="mcell">It composes: a Makefile, a git hook, a cron job, a build step.</div>
+          </div>
+          <div class="mrow">
+            <div class="mcell">Whatever encoder the server happens to run, at whatever settings.</div>
+            <div class="mcell">The frameworks already on your Mac, the ones Preview and Safari use.</div>
+          </div>
+        </div>
+
+        <div class="cols">
+          <div>
+            <h3>Against a paid Mac app</h3>
+            <p>
+              A good native app wins on anything visual: previewing a crop, nudging a mask by hand,
+              comparing two exports side by side. It costs money, and it still cannot be called from
+              a script. Different tools, different jobs.
+            </p>
+          </div>
+          <div>
+            <h3>When a GUI is the better choice</h3>
+            <p>
+              If you need to see the result before committing to it, or to adjust one image by eye,
+              open Preview. This is built for the case where you already know what you want and
+              there are thirty of them.
             </p>
           </div>
         </div>
