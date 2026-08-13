@@ -1,7 +1,36 @@
 {
   "name": "my_media_automations",
   "version": "1.0.0",
-  "description": "One interactive launcher for the macOS media automation CLIs. The individual tools are not linked globally; this is the single entry point.",
+  "description": "Interactive macOS CLI for everyday media chores, behind one command: convert images and documents, strip backgrounds with the Vision framework, and compress images and video.",
+  "keywords": [
+    "cli",
+    "macos",
+    "image-converter",
+    "background-removal",
+    "vision",
+    "compress",
+    "ffmpeg",
+    "markdown",
+    "docx",
+    "pdf",
+    "heic"
+  ],
+  "homepage": "https://github.com/sidhxntt/media_automations#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidhxntt/media_automations.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sidhxntt/media_automations/issues"
+  },
+  "license": "ISC",
+  "author": "sidhxntt",
+  "os": [
+    "darwin"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "bin": {
     "my_media_automations": "./dist/index.js",
     "auto": "./dist/index.js"
@@ -9,19 +38,31 @@
   "scripts": {
     "dev": "ts-node ./src/index.ts",
     "start": "node ./dist/index.js",
-    "build": "tsc && chmod +x dist/index.js"
+    "build": "tsc && npm run build:swift && npm run copy:swift && chmod +x dist/index.js",
+    "build:swift": "mkdir -p dist/bg/bin dist/convert/bin && swiftc -O src/bg/swift/bgremove.swift -o dist/bg/bin/bgremove && swiftc -O src/convert/swift/html2pdf.swift -o dist/convert/bin/html2pdf",
+    "copy:swift": "mkdir -p dist/bg/swift dist/convert/swift && cp src/bg/swift/*.swift dist/bg/swift/ && cp src/convert/swift/*.swift dist/convert/swift/",
+    "prepublishOnly": "npm run build"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "!dist/**/bin",
+    "!dist/**/*.map"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@clack/prompts": "^0.10.1"
+    "@clack/prompts": "^0.10.1",
+    "docx": "^9.7.1",
+    "exceljs": "^4.4.0",
+    "mammoth": "^1.12.1",
+    "marked": "^18.0.9",
+    "papaparse": "^5.5.4",
+    "sharp": "^0.34.4",
+    "turndown": "^7.2.4",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.2",
+    "@types/papaparse": "^5.3.16",
+    "@types/turndown": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
