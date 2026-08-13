@@ -1,0 +1,28 @@
+{
+  "name": "my_media_automations",
+  "version": "1.0.0",
+  "description": "One interactive launcher for the macOS media automation CLIs. The individual tools are not linked globally; this is the single entry point.",
+  "bin": {
+    "my_media_automations": "./dist/index.js",
+    "auto": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "ts-node ./src/index.ts",
+    "start": "node ./dist/index.js",
+    "build": "tsc && chmod +x dist/index.js"
+  },
+  "files": [
+    "dist/"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@clack/prompts": "^0.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

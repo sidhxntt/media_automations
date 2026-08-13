@@ -1,0 +1,38 @@
+{
+  "name": "my_file_converter",
+  "version": "1.0.0",
+  "description": "Interactive CLI that converts between documents, data files and media: md/docx/html/pdf, csv/json/yaml/xlsx, video to gif and anything to mp3",
+  "bin": {
+    "my_file_converter": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "ts-node ./src/index.ts",
+    "start": "node ./dist/index.js",
+    "build": "tsc && npm run build:swift && npm run copy:swift && chmod +x dist/index.js",
+    "build:swift": "mkdir -p dist/bin && swiftc -O src/swift/html2pdf.swift -o dist/bin/html2pdf",
+    "copy:swift": "mkdir -p dist/swift && cp src/swift/*.swift dist/swift/"
+  },
+  "files": [
+    "dist/"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@clack/prompts": "^0.10.1",
+    "docx": "^9.7.1",
+    "exceljs": "^4.4.0",
+    "mammoth": "^1.12.1",
+    "marked": "^18.0.9",
+    "papaparse": "^5.5.4",
+    "turndown": "^7.2.4",
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.2",
+    "@types/papaparse": "^5.3.16",
+    "@types/turndown": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

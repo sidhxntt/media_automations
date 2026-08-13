@@ -1,0 +1,35 @@
+{
+  "name": "my_image_converter",
+  "version": "1.0.6",
+  "bin": {
+    "my_image_converter": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "ts-node ./src/index.ts",
+    "start": "node ./dist/index.js",
+    "build": "tsc && chmod +x dist/index.js"
+  },
+  "files": [
+    "dist/"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Interactive CLI that auto-detects images and videos in a folder (defaults to ~/Downloads) and converts images to png/jpeg/jpg/webp/svg and videos to mp4",
+  "dependencies": {
+    "@clack/prompts": "^0.10.1",
+    "chalk": "^5.4.1",
+    "chalk-animation": "^2.0.3",
+    "cli-table3": "^0.6.5",
+    "commander": "^13.1.0",
+    "execa": "^9.5.2",
+    "picocolors": "^1.1.1",
+    "sharp": "^0.34.4"
+  },
+  "devDependencies": {
+    "@types/chalk-animation": "^1.6.3",
+    "@types/node": "^22.15.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

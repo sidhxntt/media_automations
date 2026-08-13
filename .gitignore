@@ -1,0 +1,18 @@
+# Dependencies — each tool has its own, restored with npm install.
+node_modules/
+
+# Build output. Rebuilt with npm run build, which also compiles the Swift
+# helpers into dist/bin/.
+dist/
+
+# macOS
+.DS_Store
+
+# Local editor and agent settings
+.claude/
+.vscode/
+.idea/
+
+# Logs and scratch
+*.log
+npm-debug.log*
