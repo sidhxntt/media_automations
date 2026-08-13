@@ -32,9 +32,9 @@ The visitor must leave believing two things: this is safe to point at their file
 
 ## Verified facts (usable as claims)
 
-Measured on a mixed folder — a 4 MB phone photo, a UI screenshot, a 5s 4K clip:
+Measured on one folder — a 5.3 MB 4K clip, a 3.9 MB phone photo and a 1.8 MB screenshot, 11.0 MB in total:
 
-- `normal` −60%, `super` −86%, `ultra` −95% total
+- `normal` −60%, `super` −83%, `ultra` −92% for the folder
 - A 3.9 MB photo → 62 KB at `ultra`, still usable
 - Background removal ~1s for a 4032×3024 HEIC
 - `md → docx → md` round-trips losslessly for headings, tables, lists, links, bold, fenced and inline code
@@ -54,6 +54,7 @@ Measured on a mixed folder — a 4 MB phone photo, a UI screenshot, a 5s 4K clip
 
 - **Pinned visual world:** the ElevenLabs-derived DESIGN.md in this repo, installed by the user via `getdesign`. Editorial, off-white canvas, warm near-black ink, pastel atmospheric gradient orbs, display type at weight 300. Explicitly **not** a dark developer-tools canvas — that constraint is the interesting part of the assignment, since the subject is a terminal tool.
 - The CLI's own splash gradient runs violet → cyan; the page's world is the pinned pastel palette, and the two should not fight.
+- The wordmark grid in `src/splash.ts` is the single source of truth for the letterform; the page's SVG is generated from it, never drawn by hand.
 
 ## This surface
 

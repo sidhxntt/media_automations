@@ -10,12 +10,12 @@ auto
 ```
 
 ```
- █████  ██    ██ ████████  ██████
+ █████  ██    ██ ████████ ████████
 ██   ██ ██    ██    ██    ██    ██
 ███████ ██    ██    ██    ██    ██
 ██   ██ ██    ██    ██    ██    ██
-██   ██  ██████     ██     ██████
- media automations  v1.0.0
+██   ██ ████████    ██    ████████
+ media automations  v1.0.1
 ```
 
 Pick a tool from the menu, or name one and pass its arguments straight through:
@@ -212,13 +212,13 @@ Known limits:
 
 ## Media Compressor
 
-`auto compress` — bulk-shrinks images and video. Measured on a mixed folder of a 4 MB phone photo, a UI screenshot and a 5s 4K clip:
+`auto compress` — bulk-shrinks images and video. Measured on one folder — a 5.3 MB 4K clip, a 3.9 MB phone photo and a 1.8 MB screenshot, 11.0 MB in total:
 
 | Mode | Total saving | What it does |
 | --- | --- | --- |
 | `normal` | **−60%** | Visually lossless, original dimensions |
-| `super` | **−86%** | Images capped at 2560px, video at 1080p |
-| `ultra` | **−95%** | Images capped at 1600px, video at 720p30 |
+| `super` | **−83%** | Images capped at 2560px, video at 1080p |
+| `ultra` | **−92%** | Images capped at 1600px, video at 720p30 |
 
 ```bash
 auto compress ~/Downloads ultra

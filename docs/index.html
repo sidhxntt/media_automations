@@ -57,7 +57,7 @@ code{font-family:var(--mono); font-size:14px; letter-spacing:0}
 .small{font-size:14px; line-height:1.5; letter-spacing:0; color:var(--body)}
 
 /* ── atmosphere: pastel orbs, decoration only ─────────────── */
-.orb{position:absolute; border-radius:50%; filter:blur(56px); opacity:.5; pointer-events:none; z-index:0}
+.orb{position:absolute; border-radius:50%; filter:blur(72px); opacity:.5; pointer-events:none; z-index:0}
 
 /* ── masthead ──────────────────────────────────────────────── */
 .masthead{
@@ -130,8 +130,12 @@ code{font-family:var(--mono); font-size:14px; letter-spacing:0}
   padding-top:10px; letter-spacing:.5px; font-variant-numeric:tabular-nums;
 }
 .chapter-head h2{max-width:26ch; text-wrap:balance}
+/* The comparison is not a step in the sequence, so it drops the ordinal
+   column rather than printing an empty cell. */
+.chapter-head.no-num{grid-template-columns:1fr}
 .chapter-head .lede{margin-top:var(--base)}
 .chapter-body{margin-top:var(--xl); padding-left:calc(56px + var(--lg))}
+.compare .chapter-body{padding-left:0}
 
 /* ── terminal panel: real captured output ──────────────────── */
 .term{
@@ -294,8 +298,8 @@ footer nav a:hover{color:var(--ink)}
 <main id="top">
 
   <section class="opening">
-    <div class="orb" style="width:520px;height:520px;background:var(--g-mint);top:-120px;right:-90px"></div>
-    <div class="orb" style="width:420px;height:420px;background:var(--g-lavender);top:96px;right:210px;opacity:.42"></div>
+    <div class="orb" style="width:520px;height:520px;background:var(--g-mint);top:40px;right:-120px"></div>
+    <div class="orb" style="width:420px;height:420px;background:var(--g-lavender);top:180px;right:200px;opacity:.42"></div>
     <div class="orb" style="width:300px;height:300px;background:var(--g-peach);top:320px;right:-40px;opacity:.34"></div>
     <div class="shell">
       <div class="badges">
@@ -306,7 +310,7 @@ footer nav a:hover{color:var(--ink)}
       <h1>Files that are the wrong format, or far too large.</h1>
       <p class="lede">
         One command on your Mac. It converts images, documents and data, strips backgrounds
-        using the same engine as Preview, and compresses video. Point it at a single file or
+        using the same engine as Preview, and compresses both images and video by up to 92%. Point it at a single file or
         a whole folder; it never touches your originals.
       </p>
 
@@ -400,7 +404,7 @@ footer nav a:hover{color:var(--ink)}
           </div>
           <div class="term-body" tabindex="0" role="group">
 <div class="splash">
-<svg class="wm" viewBox="0 0 306 75" width="306" height="75" role="img" aria-label="AUTO" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="wmg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><g fill="url(#wmg)"><rect x="9" y="0" width="45" height="15"/><rect x="153" y="0" width="72" height="15"/><rect x="234" y="0" width="72" height="15"/><rect x="0" y="15" width="18" height="15"/><rect x="45" y="15" width="18" height="15"/><rect x="72" y="15" width="18" height="15"/><rect x="126" y="15" width="18" height="15"/><rect x="180" y="15" width="18" height="15"/><rect x="234" y="15" width="18" height="15"/><rect x="288" y="15" width="18" height="15"/><rect x="0" y="30" width="63" height="15"/><rect x="72" y="30" width="18" height="15"/><rect x="126" y="30" width="18" height="15"/><rect x="180" y="30" width="18" height="15"/><rect x="234" y="30" width="18" height="15"/><rect x="288" y="30" width="18" height="15"/><rect x="0" y="45" width="18" height="15"/><rect x="45" y="45" width="18" height="15"/><rect x="72" y="45" width="18" height="15"/><rect x="126" y="45" width="18" height="15"/><rect x="180" y="45" width="18" height="15"/><rect x="234" y="45" width="18" height="15"/><rect x="288" y="45" width="18" height="15"/><rect x="0" y="60" width="18" height="15"/><rect x="45" y="60" width="18" height="15"/><rect x="72" y="60" width="72" height="15"/><rect x="180" y="60" width="18" height="15"/><rect x="234" y="60" width="72" height="15"/></g></svg>
+<svg class="wm" viewBox="0 0 306 75" width="306" height="75" role="img" aria-label="AUTO" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="wmg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><g fill="url(#wmg)"><rect x="9" y="0" width="45" height="15"/><rect x="72" y="0" width="18" height="15"/><rect x="126" y="0" width="18" height="15"/><rect x="153" y="0" width="72" height="15"/><rect x="234" y="0" width="72" height="15"/><rect x="0" y="15" width="18" height="15"/><rect x="45" y="15" width="18" height="15"/><rect x="72" y="15" width="18" height="15"/><rect x="126" y="15" width="18" height="15"/><rect x="180" y="15" width="18" height="15"/><rect x="234" y="15" width="18" height="15"/><rect x="288" y="15" width="18" height="15"/><rect x="0" y="30" width="63" height="15"/><rect x="72" y="30" width="18" height="15"/><rect x="126" y="30" width="18" height="15"/><rect x="180" y="30" width="18" height="15"/><rect x="234" y="30" width="18" height="15"/><rect x="288" y="30" width="18" height="15"/><rect x="0" y="45" width="18" height="15"/><rect x="45" y="45" width="18" height="15"/><rect x="72" y="45" width="18" height="15"/><rect x="126" y="45" width="18" height="15"/><rect x="180" y="45" width="18" height="15"/><rect x="234" y="45" width="18" height="15"/><rect x="288" y="45" width="18" height="15"/><rect x="0" y="60" width="18" height="15"/><rect x="45" y="60" width="18" height="15"/><rect x="72" y="60" width="72" height="15"/><rect x="180" y="60" width="18" height="15"/><rect x="234" y="60" width="72" height="15"/></g></svg>
 <div class="splash-meta"><span class="tagline">media automations</span> <span class="dim">v1.0.1</span></div>
 </div>
 <pre><span class="rule">┌</span>
@@ -599,7 +603,7 @@ footer nav a:hover{color:var(--ink)}
             <p>
               <code>md → docx → md</code> comes back
               intact for headings, tables, lists, links, bold, and both fenced and inline code.
-              The project's own 300-line readme was the test case.
+              The project's own readme was the test case.
             </p>
           </div>
           <div>
@@ -640,7 +644,7 @@ footer nav a:hover{color:var(--ink)}
 <pre><span class="dim">$</span> auto compress ~/clips ultra
 <span class="rule">│</span>
 <span class="mark">◒</span>  [3/3] screenshot.png -> ultra — resizing and encoding <span class="dim">[0s]</span>
-<span class="dim">◇</span>  <span class="ok">✓</span> clip-ultra.mov         <span class="dim">5.3 MB -> 356 KB (-93%)</span>
+<span class="dim">◇</span>  <span class="ok">✓</span> clip-ultra.mov         <span class="dim">5.3 MB -> 357 KB (-93%)</span>
 <span class="dim">◇</span>  <span class="ok">✓</span> photo-ultra.jpg        <span class="dim">3.9 MB -> 62 KB (-98%)</span>
 <span class="dim">◇</span>  <span class="ok">✓</span> screenshot-ultra.png   <span class="dim">1.8 MB -> 447 KB (-75%)</span>
 <span class="rule">│</span>
@@ -653,7 +657,7 @@ footer nav a:hover{color:var(--ink)}
         <p class="caption">Long encodes count up a real percentage, so a slow job never looks like a hang.</p>
 
         <table class="ledger">
-          <caption>Measured on one folder: a 4&nbsp;MB phone photo, a UI screenshot, and a 5-second 4K clip.</caption>
+          <caption>Measured on the same folder as the run above: a 5.3&nbsp;MB 4K clip, a 3.9&nbsp;MB phone photo and a 1.8&nbsp;MB screenshot, 11.0&nbsp;MB in total.</caption>
           <thead>
             <tr><th scope="col">Level</th><th scope="col">Whole folder</th><th scope="col">What it does</th></tr>
           </thead>
@@ -665,12 +669,12 @@ footer nav a:hover{color:var(--ink)}
             </tr>
             <tr>
               <th scope="row">super</th>
-              <td class="num">−86%</td>
+              <td class="num">−83%</td>
               <td>Images capped at 2560px, video at 1080p.</td>
             </tr>
             <tr>
               <th scope="row">ultra</th>
-              <td class="num">−95%</td>
+              <td class="num">−92%</td>
               <td>Images capped at 1600px, video at 720p30.</td>
             </tr>
           </tbody>
@@ -749,8 +753,7 @@ footer nav a:hover{color:var(--ink)}
 
   <section class="chapter compare">
     <div class="shell">
-      <div class="chapter-head">
-        <div class="chapter-num" aria-hidden="true"></div>
+      <div class="chapter-head no-num">
         <div>
           <h2>Why not just use a website?</h2>
           <p class="lede">
@@ -775,12 +778,12 @@ footer nav a:hover{color:var(--ink)}
             <div class="mcell">The bytes never move off the SSD, so there is no round trip to wait through.</div>
           </div>
           <div class="mrow">
-            <div class="mcell">Usually one file at a time. Real batching tends to sit behind a subscription.</div>
+            <div class="mcell">A page handles what you drag onto it, one drop at a time.</div>
             <div class="mcell">Point it at a folder. Forty files is the same command as one.</div>
           </div>
           <div class="mrow">
-            <div class="mcell">Free tiers cap file size, watermark the output, or meter you per day.</div>
-            <div class="mcell">No caps, no watermark, no metering. Your free disk space is the limit.</div>
+            <div class="mcell">Someone else owns the limits, and they can change them.</div>
+            <div class="mcell">The only limit is your free disk space.</div>
           </div>
           <div class="mrow">
             <div class="mcell">You cannot put a browser tab inside a shell script.</div>
