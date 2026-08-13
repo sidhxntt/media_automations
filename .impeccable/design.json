@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-14T00:00:00Z",
+  "title": "Design System: media automations",
+  "extensions": {
+    "colorMeta": {
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Off-White Canvas",
+        "canonical": "#f5f5f5",
+        "tonalRamp": ["oklch(15% 0.004 60)", "oklch(25% 0.004 60)", "oklch(35% 0.004 60)", "oklch(48% 0.004 60)", "oklch(62% 0.004 60)", "oklch(76% 0.004 60)", "oklch(88% 0.004 60)", "oklch(96.5% 0.004 60)"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#0c0a09",
+        "tonalRamp": ["oklch(10% 0.006 40)", "oklch(20% 0.006 40)", "oklch(30% 0.006 40)", "oklch(42% 0.006 40)", "oklch(55% 0.006 40)", "oklch(70% 0.006 40)", "oklch(84% 0.006 40)", "oklch(95% 0.006 40)"]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Ink Pill",
+        "canonical": "#292524",
+        "tonalRamp": ["oklch(15% 0.008 50)", "oklch(25% 0.008 50)", "oklch(36% 0.008 50)", "oklch(48% 0.008 50)", "oklch(60% 0.008 50)", "oklch(73% 0.008 50)", "oklch(85% 0.008 50)", "oklch(95% 0.008 50)"]
+      },
+      "body": {
+        "role": "neutral",
+        "displayName": "Body Grey",
+        "canonical": "#4e4e4e",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(58% 0 0)", "oklch(72% 0 0)", "oklch(85% 0 0)", "oklch(95% 0 0)"]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Warm Grey",
+        "canonical": "#777169",
+        "tonalRamp": ["oklch(15% 0.012 70)", "oklch(25% 0.012 70)", "oklch(36% 0.012 70)", "oklch(50% 0.012 70)", "oklch(62% 0.012 70)", "oklch(75% 0.012 70)", "oklch(86% 0.012 70)", "oklch(95% 0.012 70)"]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e7e5e4",
+        "tonalRamp": ["oklch(15% 0.004 60)", "oklch(26% 0.004 60)", "oklch(38% 0.004 60)", "oklch(50% 0.004 60)", "oklch(64% 0.004 60)", "oklch(78% 0.004 60)", "oklch(91% 0.004 60)", "oklch(97% 0.004 60)"]
+      },
+      "surface-dark": {
+        "role": "neutral",
+        "displayName": "Near-Black Panel",
+        "canonical": "#0c0a09",
+        "tonalRamp": ["oklch(10% 0.006 40)", "oklch(18% 0.006 40)", "oklch(28% 0.006 40)", "oklch(40% 0.006 40)", "oklch(53% 0.006 40)", "oklch(68% 0.006 40)", "oklch(82% 0.006 40)", "oklch(94% 0.006 40)"]
+      },
+      "g-mint": {
+        "role": "tertiary",
+        "displayName": "Atmospheric Mint",
+        "canonical": "#a7e5d3",
+        "tonalRamp": ["oklch(20% 0.07 165)", "oklch(31% 0.07 165)", "oklch(42% 0.07 165)", "oklch(53% 0.07 165)", "oklch(64% 0.07 165)", "oklch(75% 0.07 165)", "oklch(87% 0.07 165)", "oklch(95% 0.05 165)"]
+      },
+      "g-peach": {
+        "role": "tertiary",
+        "displayName": "Atmospheric Peach",
+        "canonical": "#f4c5a8",
+        "tonalRamp": ["oklch(20% 0.06 55)", "oklch(31% 0.06 55)", "oklch(42% 0.06 55)", "oklch(53% 0.06 55)", "oklch(64% 0.06 55)", "oklch(75% 0.06 55)", "oklch(85% 0.06 55)", "oklch(95% 0.04 55)"]
+      },
+      "g-lavender": {
+        "role": "tertiary",
+        "displayName": "Atmospheric Lavender",
+        "canonical": "#c8b8e0",
+        "tonalRamp": ["oklch(20% 0.06 300)", "oklch(31% 0.06 300)", "oklch(42% 0.06 300)", "oklch(53% 0.06 300)", "oklch(64% 0.06 300)", "oklch(72% 0.06 300)", "oklch(79% 0.06 300)", "oklch(93% 0.04 300)"]
+      },
+      "g-sky": {
+        "role": "tertiary",
+        "displayName": "Atmospheric Sky",
+        "canonical": "#a8c8e8",
+        "tonalRamp": ["oklch(20% 0.05 245)", "oklch(31% 0.05 245)", "oklch(42% 0.05 245)", "oklch(53% 0.05 245)", "oklch(64% 0.05 245)", "oklch(73% 0.05 245)", "oklch(81% 0.05 245)", "oklch(94% 0.035 245)"]
+      },
+      "g-rose": {
+        "role": "tertiary",
+        "displayName": "Atmospheric Rose",
+        "canonical": "#e8b8c4",
+        "tonalRamp": ["oklch(20% 0.05 15)", "oklch(31% 0.05 15)", "oklch(42% 0.05 15)", "oklch(53% 0.05 15)", "oklch(64% 0.05 15)", "oklch(73% 0.05 15)", "oklch(82% 0.05 15)", "oklch(94% 0.035 15)"]
+      }
+    },
+    "typographyMeta": {
+      "display-mega": { "displayName": "Display Mega", "purpose": "The single h1. EB Garamond 400 (the substitute face ships no 300), 19ch measure, text-wrap balance." },
+      "display-lg": { "displayName": "Chapter Title", "purpose": "Chapter h2s. The display face stops here; h3 is Inter." },
+      "ordinal": { "displayName": "Chapter Ordinal", "purpose": "Spelled-out numbers in the 56px ordinal column. Display face, tabular figures, aria-hidden." },
+      "mono-lg": { "displayName": "Install Command", "purpose": "The command to copy. The largest monospace on the page because it is the primary action." },
+      "mono": { "displayName": "Mono Inline", "purpose": "Inline code spans, identifiers, and measured figures with tabular-nums." },
+      "mono-sm": { "displayName": "Captured Output", "purpose": "Transcribed terminal body, format tags, table row headers. Steps to 11.5px below 720px." },
+      "mono-xs": { "displayName": "Panel Title", "purpose": "Terminal window titles only." }
+    },
+    "shadows": [
+      { "name": "panel-seat", "value": "0 4px 16px rgba(0,0,0,0.04)", "purpose": "The system's only shadow. Seats the near-black terminal panel on the off-white paper so the inversion does not cut a hard hole. Never applied to buttons, cards, matrices or the masthead." }
+    ],
+    "motion": [
+      { "name": "state", "value": "0.18s ease", "purpose": "Every interactive state change: background-color, border-color, color. No transform, no shadow." },
+      { "name": "glint-ease", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The one authored moment: the splash glint's decelerating sweep." },
+      { "name": "glint-duration", "value": "1.15s", "purpose": "Glint sweep length, 0.15s delay, plays once on first view of the terminal panel." },
+      { "name": "copy-confirm", "value": "1800ms", "purpose": "How long the copy button holds its mint 'Copied' state (2600ms for the '⌘C' clipboard-blocked fallback)." },
+      { "name": "reduced-motion-clamp", "value": "0.001ms", "purpose": "prefers-reduced-motion clamps every animation and transition. Nothing is hidden behind motion, so clamping loses no content." }
+    ],
+    "breakpoints": [
+      { "name": "prose", "value": "900px" },
+      { "name": "mobile", "value": "720px" },
+      { "name": "shell-max", "value": "1200px" }
+    ],
+    "accessibility": [
+      { "name": "focus-ring", "value": "2px solid #0c0a09, 3px offset, 4px radius", "purpose": "Global :focus-visible." },
+      { "name": "focus-ring-on-dark", "value": "outline-color #fafafa", "purpose": "An ink ring is invisible on the near-black command bar and terminal panel, so dark surfaces get a light ring." },
+      { "name": "contrast-body", "value": "7.6:1", "purpose": "#4e4e4e on #f5f5f5. Required for anything that carries information." },
+      { "name": "contrast-muted", "value": "4.29:1", "purpose": "#777169 on #f5f5f5. Decorative only — terminal box-drawing scaffolding." },
+      { "name": "contrast-on-dark-body", "value": "15.7:1", "purpose": "#e7e5e4 on #0c0a09, captured terminal text." },
+      { "name": "scrollable-output", "value": "tabindex=\"0\" role=\"group\"", "purpose": "Horizontally scrolling terminal bodies are focusable so a keyboard user can reach the scroll region." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Pill",
+      "kind": "button",
+      "refersTo": "pill-primary",
+      "description": "The only filled button in the system. Masthead action and the secondary action beside each install command.",
+      "html": "<a class=\"ds-pill ds-pill-primary\" href=\"#install\">Install</a>",
+      "css": ".ds-pill { display:inline-flex; align-items:center; justify-content:center; gap:8px; height:40px; padding:0 20px; border-radius:9999px; font-family:Inter,system-ui,sans-serif; font-size:15px; font-weight:500; letter-spacing:0; text-decoration:none; border:1px solid transparent; cursor:pointer; white-space:nowrap; transition:background-color .18s ease, border-color .18s ease, color .18s ease; } .ds-pill-primary { background:var(--primary,#292524); color:var(--on-primary,#fff); } .ds-pill-primary:hover { background:var(--primary-active,#0c0a09); } .ds-pill-primary:focus-visible { outline:2px solid var(--ink,#0c0a09); outline-offset:3px; border-radius:4px; }"
+    },
+    {
+      "name": "Outline Pill",
+      "kind": "button",
+      "refersTo": "pill-outline",
+      "description": "Secondary action. Same capsule, hairline border, transparent fill; hover darkens the border only.",
+      "html": "<a class=\"ds-pill ds-pill-outline\" href=\"#source\">Read the source</a>",
+      "css": ".ds-pill { display:inline-flex; align-items:center; justify-content:center; gap:8px; height:40px; padding:0 20px; border-radius:9999px; font-family:Inter,system-ui,sans-serif; font-size:15px; font-weight:500; letter-spacing:0; text-decoration:none; border:1px solid transparent; cursor:pointer; white-space:nowrap; transition:background-color .18s ease, border-color .18s ease, color .18s ease; } .ds-pill-outline { background:transparent; color:var(--ink,#0c0a09); border-color:var(--hairline-strong,#d6d3d1); } .ds-pill-outline:hover { border-color:var(--ink,#0c0a09); } .ds-pill-outline:focus-visible { outline:2px solid var(--ink,#0c0a09); outline-offset:3px; border-radius:4px; }"
+    },
+    {
+      "name": "Badge Pill",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Static small-caps status marker. Never a link, never stateful.",
+      "html": "<span class=\"ds-badge\">macOS only</span>",
+      "css": ".ds-badge { display:inline-flex; align-items:center; gap:6px; height:26px; padding:0 10px; border-radius:9999px; background:var(--surface-strong,#f0efed); color:var(--ink,#0c0a09); font-family:Inter,system-ui,sans-serif; font-size:12px; font-weight:600; letter-spacing:.96px; text-transform:uppercase; }"
+    },
+    {
+      "name": "Command Bar",
+      "kind": "custom",
+      "refersTo": "command-bar",
+      "description": "The page's primary action: an inverted bar holding the install command, a mint prompt glyph, and a copy button. One of only two dark surfaces.",
+      "html": "<div class=\"ds-cmd\"><span class=\"ds-cmd-prompt\" aria-hidden=\"true\">$</span><code>npm install -g my_media_automations</code><button class=\"ds-copy\" type=\"button\" aria-label=\"Copy install command\" aria-live=\"polite\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"11\" height=\"11\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h8\"/></svg><span>Copy</span></button></div>",
+      "css": ".ds-cmd { display:flex; align-items:center; gap:12px; background:var(--surface-dark,#0c0a09); color:var(--on-dark,#fff); border-radius:12px; padding:14px 16px 14px 20px; min-height:52px; } .ds-cmd code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:14.5px; letter-spacing:0; white-space:nowrap; overflow-x:auto; } .ds-cmd-prompt { color:var(--g-mint,#a7e5d3); user-select:none; } .ds-copy { flex:none; display:inline-flex; align-items:center; gap:6px; height:32px; padding:0 12px; border-radius:9999px; border:1px solid rgba(255,255,255,.42); background:transparent; color:var(--on-dark,#fff); font-family:Inter,system-ui,sans-serif; font-size:13px; font-weight:500; cursor:pointer; transition:background-color .18s ease, border-color .18s ease; } .ds-copy svg { width:13px; height:13px; } .ds-copy:hover { background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.32); } .ds-copy[data-copied=\"true\"] { border-color:var(--g-mint,#a7e5d3); color:var(--g-mint,#a7e5d3); } .ds-cmd :focus-visible { outline:2px solid #fafafa; outline-offset:3px; border-radius:4px; }"
+    },
+    {
+      "name": "Terminal Panel",
+      "kind": "custom",
+      "refersTo": "term-panel",
+      "description": "Quotes real captured CLI output. Transcribed text only — it is a quotation mechanism, not a code-sample style. Carries the system's single shadow.",
+      "html": "<div class=\"ds-term\"><div class=\"ds-term-bar\"><span class=\"ds-term-dot\"></span><span class=\"ds-term-dot\"></span><span class=\"ds-term-dot\"></span><span class=\"ds-term-title\">auto compress</span></div><div class=\"ds-term-body\" tabindex=\"0\" role=\"group\"><pre><span class=\"ds-dim\">$</span> auto compress ~/clips ultra\n<span class=\"ds-rule\">│</span>\n<span class=\"ds-dim\">◇</span>  <span class=\"ds-ok\">✓</span> photo-ultra.jpg        <span class=\"ds-dim\">3.9 MB -&gt; 62 KB (-98%)</span>\n<span class=\"ds-rule\">└</span>  Done! Files saved to compressed/</pre></div></div>",
+      "css": ".ds-term { background:var(--surface-dark,#0c0a09); border-radius:16px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,.04); } .ds-term-bar { display:flex; align-items:center; gap:7px; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.08); } .ds-term-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.16); } .ds-term-title { margin-left:6px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; letter-spacing:.3px; color:var(--on-dark-soft,#a8a29e); } .ds-term-body { padding:20px 16px 24px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; line-height:1.62; letter-spacing:0; color:var(--on-dark-body,#e7e5e4); overflow-x:auto; } .ds-term-body pre { margin:0; font:inherit; } .ds-dim { color:var(--on-dark-soft,#a8a29e); } .ds-rule { color:var(--muted,#777169); } .ds-ok { color:var(--g-mint,#a7e5d3); } .ds-term :focus-visible { outline:2px solid #fafafa; outline-offset:3px; border-radius:4px; }"
+    },
+    {
+      "name": "Chapter Head",
+      "kind": "custom",
+      "refersTo": "chapter-ordinal",
+      "description": "A 56px ordinal column plus heading and lede. The ordinal is a print convention, so it is aria-hidden; the no-num variant collapses the column rather than printing an empty cell.",
+      "html": "<div class=\"ds-chapter-head\"><div class=\"ds-chapter-num\" aria-hidden=\"true\">Six</div><div><h2>Making things smaller</h2><p class=\"ds-lede\">Three levels. <code>normal</code> is visually lossless at original dimensions.</p></div></div>",
+      "css": ".ds-chapter-head { display:grid; grid-template-columns:56px 1fr; gap:24px; align-items:start; } .ds-chapter-head h2 { font-family:'EB Garamond','Times New Roman',serif; font-weight:400; color:var(--ink,#0c0a09); margin:0; font-size:clamp(24px,4vw,36px); line-height:1.17; letter-spacing:-.36px; max-width:26ch; text-wrap:balance; } .ds-chapter-num { font-family:'EB Garamond','Times New Roman',serif; font-size:15px; color:var(--muted-soft,#a8a29e); padding-top:10px; letter-spacing:.5px; font-variant-numeric:tabular-nums; } .ds-lede { margin:16px 0 0; font-family:Inter,system-ui,sans-serif; font-size:16px; line-height:1.55; letter-spacing:.16px; color:var(--body,#4e4e4e); max-width:60ch; } .ds-lede code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:14px; letter-spacing:0; color:var(--ink,#0c0a09); } @media (max-width:720px) { .ds-chapter-head { grid-template-columns:1fr; gap:8px; } .ds-chapter-num { padding-top:0; } }"
+    },
+    {
+      "name": "Results Ledger",
+      "kind": "custom",
+      "refersTo": "ledger-figure",
+      "description": "The measured-results table. Ruled rows, small-caps heads, mono row keys and mono tabular figures. No zebra striping, no outer border, no radius.",
+      "html": "<table class=\"ds-ledger\"><caption>Measured on one folder: 11.0 MB in total.</caption><thead><tr><th scope=\"col\">Level</th><th scope=\"col\">Whole folder</th><th scope=\"col\">What it does</th></tr></thead><tbody><tr><th scope=\"row\">ultra</th><td class=\"ds-num\">−92%</td><td>Images capped at 1600px, video at 720p30.</td></tr></tbody></table>",
+      "css": ".ds-ledger { width:100%; border-collapse:collapse; font-family:Inter,system-ui,sans-serif; } .ds-ledger caption { text-align:left; font-size:13.5px; color:var(--body,#4e4e4e); padding-bottom:12px; letter-spacing:0; } .ds-ledger th, .ds-ledger td { padding:14px 16px; text-align:left; border-bottom:1px solid var(--hairline,#e7e5e4); } .ds-ledger thead th { font-size:12px; font-weight:600; letter-spacing:.96px; text-transform:uppercase; color:var(--body,#4e4e4e); border-bottom-color:var(--hairline-strong,#d6d3d1); } .ds-ledger tbody th { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; font-weight:400; color:var(--ink,#0c0a09); letter-spacing:0; } .ds-ledger td { font-size:15px; color:var(--body,#4e4e4e); } .ds-ledger .ds-num { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:14px; color:var(--ink,#0c0a09); font-variant-numeric:tabular-nums; white-space:nowrap; }"
+    },
+    {
+      "name": "Format Matrix",
+      "kind": "card",
+      "refersTo": "matrix-cell",
+      "description": "Key/value grid built from 1px grid gaps over a hairline background rather than per-cell borders. Key column sits a half-step down on paper-soft.",
+      "html": "<div class=\"ds-matrix\"><div class=\"ds-mrow\"><div class=\"ds-mcell\"><span class=\"ds-mono-tag\">md</span></div><div class=\"ds-mcell\"><span class=\"ds-mono-tag\">docx</span><span class=\"ds-mono-tag\">pdf</span><span class=\"ds-mono-tag\">html</span></div></div><div class=\"ds-mrow\"><div class=\"ds-mcell\"><span class=\"ds-mono-tag\">csv</span></div><div class=\"ds-mcell\">any of the others</div></div></div>",
+      "css": ".ds-matrix { display:grid; gap:1px; background:var(--hairline,#e7e5e4); border:1px solid var(--hairline,#e7e5e4); border-radius:16px; overflow:hidden; font-family:Inter,system-ui,sans-serif; font-size:15px; color:var(--body,#4e4e4e); } .ds-mrow { display:grid; grid-template-columns:minmax(140px,.42fr) 1fr; gap:1px; background:var(--hairline,#e7e5e4); } .ds-mcell { background:var(--surface-card,#fff); padding:14px 16px; } .ds-mcell:first-child { background:var(--canvas-soft,#fafafa); } .ds-mono-tag { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; color:var(--ink,#0c0a09); letter-spacing:0; } .ds-mcell .ds-mono-tag + .ds-mono-tag { margin-left:8px; } @media (max-width:720px) { .ds-mrow { grid-template-columns:1fr; } }"
+    },
+    {
+      "name": "Masthead",
+      "kind": "nav",
+      "refersTo": "masthead",
+      "description": "Sticky 64px bar on the canvas colour with the softest hairline in the system, so it reads as part of the paper. Below 720px it drops items rather than folding into a menu.",
+      "html": "<header class=\"ds-masthead\"><a class=\"ds-wordmark\" href=\"#top\">media automations <span>v1.0.1</span></a><nav class=\"ds-mast-links\"><a href=\"#npm\">npm</a><a href=\"#src\">GitHub</a><a class=\"ds-pill ds-pill-primary\" href=\"#install\">Install</a></nav></header>",
+      "css": ".ds-masthead { position:sticky; top:0; z-index:20; height:64px; display:flex; align-items:center; gap:16px; padding:0 24px; background:var(--canvas,#f5f5f5); border-bottom:1px solid var(--hairline-soft,#f0efed); font-family:Inter,system-ui,sans-serif; } .ds-wordmark { font-size:15px; font-weight:500; color:var(--ink,#0c0a09); letter-spacing:-.1px; margin-right:auto; text-decoration:none; white-space:nowrap; } .ds-wordmark span { color:var(--muted-soft,#a8a29e); } .ds-mast-links { display:flex; align-items:center; gap:20px; } .ds-mast-links a { font-size:15px; font-weight:500; color:var(--body,#4e4e4e); text-decoration:none; } .ds-mast-links a:hover { color:var(--ink,#0c0a09); } .ds-mast-links a.ds-pill-primary { color:var(--on-primary,#fff); }"
+    },
+    {
+      "name": "Atmospheric Orb",
+      "kind": "custom",
+      "refersTo": "orb",
+      "description": "The entire colour budget of the light canvas. A blurred pastel circle behind content, clipped by its band, never holding anything.",
+      "html": "<div class=\"ds-orb-stage\"><div class=\"ds-orb\" style=\"width:320px;height:320px;background:var(--g-mint,#a7e5d3);top:-40px;right:-80px\"></div><div class=\"ds-orb\" style=\"width:240px;height:240px;background:var(--g-lavender,#c8b8e0);top:60px;right:120px;opacity:.42\"></div><div class=\"ds-orb-content\"><h2>Atmosphere sits behind, always</h2></div></div>",
+      "css": ".ds-orb-stage { position:relative; overflow:hidden; padding:48px 24px; min-height:200px; background:var(--canvas,#f5f5f5); } .ds-orb { position:absolute; border-radius:50%; filter:blur(72px); opacity:.5; pointer-events:none; z-index:0; } .ds-orb-content { position:relative; z-index:1; } .ds-orb-content h2 { margin:0; font-family:'EB Garamond','Times New Roman',serif; font-weight:400; font-size:clamp(24px,4vw,36px); line-height:1.17; letter-spacing:-.36px; color:var(--ink,#0c0a09); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Printed Owner's Manual",
+    "overview": "This is a terminal tool explained the way a good manual explains a machine: numbered chapters, read in the order you actually meet the software. The page floor is off-white #f5f5f5 holding warm near-black ink #0c0a09; structure comes from hairline rules and a 96px chapter rhythm, never from cards or boxes stacked for their own sake. The world deliberately refuses the CLI-landing rut — there is no dark developer-tools canvas, no hero-plus-three-feature-cards grid, and no invented metric anywhere on the surface.\n\nColour is atmospheric rather than chromatic. Five pastel orbs (mint, peach, lavender, sky, rose) bloom behind copy at filter: blur(72px) and are the only colour on the light canvas; the single call to action is a near-black ink pill, and the secondary is a transparent outline of the same shape. The one place the page goes dark is where it quotes the machine: .term panels and the install command bar invert to the near-black surface because they are reproductions of real terminal output, and inverting them is what makes them read as quotation rather than as decoration.\n\nThree faces do three jobs and never trade places. EB Garamond at weight 400 carries display and the chapter ordinals. Inter carries everything a human wrote — ledes, prose, labels, buttons. A monospace stack carries everything the machine produced or measured: the install command, captured output, code spans, file names, byte counts. That third tier is a hard functional boundary, not a \"technical\" mood.",
+    "keyCharacteristics": [
+      "Off-white canvas, warm near-black ink; ink pill is the only action colour.",
+      "Display is EB Garamond at 400, not 300 — the substitute face ships no 300 (see The Substituted Weight Rule).",
+      "A real monospace tier, scoped to machine output, data and measurement.",
+      "Dark surfaces exist only as quoted terminal output — nowhere else.",
+      "Pastel orbs as blurred atmosphere; on dark panels the same pastels stand in for the CLI's own ANSI colours.",
+      "96px chapter rhythm (64px on mobile), hairline rules, a 56px ordinal column.",
+      "Exactly one shadow, exactly one authored motion, and no entrance animation anywhere."
+    ],
+    "rules": [
+      { "name": "The Two Duties Rule", "body": "The pastels have exactly two jobs. On the light canvas they are blurred atmosphere and nothing else — never a fill, never a text colour, never a border. On a .term panel they are the stand-in for the CLI's own ANSI colours, applied to single glyphs and short spans inside quoted output (mint for prompt and success, peach for in-progress, sky for selection and tagline). All four clear 11:1 on the near-black panel. There is no third duty: a pastel never becomes a button, a link, a heading, or a gradient behind text.", "section": "colors" },
+      { "name": "The Quoted-Output Rule", "body": "The violet-to-cyan gradient in the splash wordmark (#a78bfa → #22d3ee) is the CLI's own launch gradient, reproduced inside one inline SVG so the page shows the real thing. It is quoted product output, not brand chrome. It is deliberately absent from the colour tokens and must not be lifted out as an accent, a button fill, a gradient text treatment, or a border anywhere on the page.", "section": "colors" },
+      { "name": "The Muted Floor Rule", "body": "Muted #777169 sits at 4.29:1 and is therefore restricted to decoration — terminal box-drawing scaffolding. Anything that carries information, however small or however parenthetical, uses body #4e4e4e at 7.6:1. If a value, a caption, or a caveat is worth printing, it is worth 7.6:1.", "section": "colors" },
+      { "name": "The One Dark Surface Rule", "body": "The near-black surface appears only where real machine output is being quoted: the install command bar and .term panels. The subject is a terminal tool, which is exactly why the page itself is not a terminal — the inversion has to mean something, and it only means something if it is rare.", "section": "colors" },
+      { "name": "The Substituted Weight Rule", "body": "Display sits at 400, and that is not a style preference. The world's licensed display face was unavailable, and the documented open-source substitute — EB Garamond — ships no 300 weight; the loaded family is 0,400;0,500;1,400. Asking a browser for 300 here produces a synthesised light face, which on a garamond means smeared stems. 400 is the real floor of this face, so 400 is the rule. Never bold display copy: the ceiling has not moved, only the floor.", "section": "typography" },
+      { "name": "The Mono-Means-Machine Rule", "body": "Monospace marks provenance, never mood. It is used for exactly four things: commands you type, output the machine printed, identifiers (file names, flags, formats, API symbols), and measured figures. It is never a decorative \"technical\" voice — no monospace headings, no monospace ledes, no monospace labels, no monospace for prose that a person wrote. Measured figures additionally carry font-variant-numeric: tabular-nums so a column of percentages lines up.", "section": "typography" },
+      { "name": "The Sans Sub-head Rule", "body": "The display face stops at h2. Sub-heads inside a chapter body (h3) are Inter 500 at 20px, which keeps the garamond exclusive to the two levels that structure the manual — the title and the chapter — and keeps a dense two-column grid from filling up with serifs.", "section": "typography" },
+      { "name": "The Editorial Tracking Rule", "body": "Inter runs at +0.16px on everything conversational (body, lede, 15px prose) and drops to 0 wherever text is functional or already tracked (captions, buttons, table figures, mono, and the +0.96px small caps). Display tracks negative: −1.4px on the h1, −0.36px on chapter titles. Note that the h1's tracking is a fixed px value against a fluid size, so it tightens proportionally as the head shrinks; a new display size should get its own tracking rather than inheriting −1.4px.", "section": "typography" },
+      { "name": "The Ordinal Column Rule", "body": "The 56px column exists so a chapter's number never pushes its title out of alignment. A band that is not a step in the sequence — the comparison — takes the no-num variant and collapses the column to a single track rather than printing an empty cell, and it also drops the body indent so its two-up table can use the full measure.", "section": "layout" },
+      { "name": "The Hairline Structure Rule", "body": "Depth and division are 1px hairlines and a half-step of tone. There are no boxes drawn around content on the light canvas: tables rule between rows, matrices rule between cells via grid gaps, and bands rule at the top edge.", "section": "layout" },
+      { "name": "The One Shadow Rule", "body": "0 4px 16px rgba(0,0,0,0.04) is the system's entire shadow vocabulary and it belongs to the terminal panel. Buttons, cards, matrices, badges and the masthead are flat at rest and flat on hover; hover changes colour or border, never height. No new shadow tier is added without deleting this one first.", "section": "elevation" },
+      { "name": "The Atmosphere Behind Rule", "body": "Orbs live at z-index: 0 inside a position: relative; overflow: hidden band whose .shell is raised to z-index: 1. Atmosphere is always behind content, always clipped by its band, and always pointer-events: none. An orb never becomes a surface that holds something.", "section": "elevation" },
+      { "name": "The Pill-Or-Panel Rule", "body": "If it can be clicked, it is a pill (9999px). If it is a container, it is 12–16px. Nothing in between, and nothing square-cornered except the ruled table.", "section": "shapes" },
+      { "name": "The Nothing-Hidden Rule", "body": "There is no opacity: 0 state and no entrance animation anywhere in this system. The glint plays on an element that is already fully visible; a browser that never runs the script, or an observer that never fires, still shows the entire page. This is a recorded correction, not a preference: an earlier scroll-reveal on this page hid its own proof — the captured terminal output — when the observer did not fire. Do not reintroduce reveal-on-scroll here. prefers-reduced-motion: reduce additionally clamps every animation and transition to 0.001ms.", "section": "components" }
+    ],
+    "dos": [
+      "Do set display type in EB Garamond at 400. It is the real floor of the substitute face; 300 would be a synthesised light.",
+      "Do keep monospace for machine things only: commands, captured output, identifiers, measured figures. Add tabular-nums to any column of figures.",
+      "Do invert to the near-black surface only when quoting real terminal output, and give that surface the light focus ring.",
+      "Do use body #4e4e4e (7.6:1) for anything that carries information, however small; leave muted #777169 to terminal scaffolding.",
+      "Do structure with hairlines, a half-step of tone, and the 96px band rhythm (64px below 720px).",
+      "Do give every clickable capsule the pill radius and every container 12–16px.",
+      "Do collapse the ordinal column with no-num when a band is not a numbered step.",
+      "Do transcribe real output and real figures. Every number on this page is measured."
+    ],
+    "donts": [
+      "Don't bold display copy, and don't ask for weight 300 — the loaded family is 400/500/400-italic only.",
+      "Don't put the page itself on a dark canvas. The subject being a terminal tool is the reason the paper stays off-white; the inversion only means \"this is the machine speaking\" while it stays rare.",
+      "Don't treat the splash gradient (#a78bfa → #22d3ee) as an accent colour. It is quoted product output and lives only inside that one SVG.",
+      "Don't use a pastel as a button fill, a link colour, a heading colour, or a gradient behind text. Blurred atmosphere on light; ANSI stand-in glyphs on dark; nothing else.",
+      "Don't add an entrance animation, a scroll reveal, or any opacity: 0 resting state. Content must never depend on a script to become visible.",
+      "Don't add a second shadow, or make hover move an element. Hover changes colour and border only.",
+      "Don't introduce a saturated action colour. The ink pill is the only filled button.",
+      "Don't use monospace as a stylistic voice — no mono headings, ledes or labels.",
+      "Don't invent a metric, a benchmark, or a screenshot. If it is not measured or captured, it does not go on the page."
+    ]
+  }
+}
