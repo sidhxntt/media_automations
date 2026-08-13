@@ -15,7 +15,7 @@ auto
 ███████ ██    ██    ██    ██    ██
 ██   ██ ██    ██    ██    ██    ██
 ██   ██ ████████    ██    ████████
- media automations  v1.0.1
+ media automations  v1.0.2
 ```
 
 Pick a tool from the menu, or name one and pass its arguments straight through:

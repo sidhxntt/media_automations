@@ -1,11 +1,28 @@
 #!/usr/bin/env node
+import fs from 'fs';
+import path from 'path';
 import { spawnSync } from 'child_process';
 import { intro, outro, select, note, log, isCancel, cancel } from '@clack/prompts';
 import { allBuildHints, buildHint, findByAlias, resolveTools, type ResolvedTool } from './tools';
 import { canAnimate, plainSplash, showSplash } from './splash';
 
-/** Read from package.json at build time is not available, so keep it here. */
-const VERSION = '1.0.0';
+/**
+ * Read from the manifest rather than hardcoded.
+ *
+ * A literal here drifts the moment the version is bumped, and it had already
+ * drifted two releases: the splash printed 1.0.0 while the package was 1.0.2.
+ * The path resolves the same from dist/ and from src/ under ts-node.
+ */
+function readVersion(): string {
+  try {
+    const manifest = path.join(__dirname, '..', 'package.json');
+    return (JSON.parse(fs.readFileSync(manifest, 'utf8')) as { version?: string }).version ?? '0.0.0';
+  } catch {
+    return '0.0.0';
+  }
+}
+
+const VERSION = readVersion();
 
 /** Sentinel for the menu entry that ends the session. */
 const QUIT = '__quit__';
@@ -60,10 +77,16 @@ async function run(): Promise<void> {
 
   // Flags belong to the launcher, not to the tool it starts, so they are taken
   // out before the first remaining argument is read as a tool name.
+  // Only the leading run of launcher flags is consumed. Everything from the
+  // alias onwards is the tool's own argv and is handed over verbatim: filtering
+  // the whole array would silently eat an identically named flag belonging to a
+  // tool, so `auto convert notes.md --no-splash` would lose an argument it was
+  // never the launcher's business to read.
   const LAUNCHER_FLAGS = ['--no-splash'];
-  const [requested, ...passthrough] = process.argv
-    .slice(2)
-    .filter((argument) => !LAUNCHER_FLAGS.includes(argument));
+  const argv = process.argv.slice(2);
+  let first = 0;
+  while (first < argv.length && LAUNCHER_FLAGS.includes(argv[first])) first++;
+  const [requested, ...passthrough] = argv.slice(first);
 
   // Named directly, so this is a shortcut rather than a menu:
   //   my_automations compress ~/clips ultra
